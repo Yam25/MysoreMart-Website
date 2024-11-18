@@ -9,7 +9,7 @@
 	        const productName = $card.find('.card-title').text().trim(); 
 	        const priceText = $card.find('.card-text strong').text(); 
 	        const price = parseFloat(priceText.replace(/[^0-9.-]+/g, "")); 
-	        const selectedQuantity = $card.find('select[name="selectedQuantity"]').val(); 
+	        const selectedQuantity = $card.find('.card-text.weight').text().trim(); 
 	        const imgUrl = $card.find('img').attr('src'); 
 
 	        $.ajax({
