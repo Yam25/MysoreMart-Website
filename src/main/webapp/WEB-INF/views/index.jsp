@@ -82,7 +82,7 @@
 				            Hello, User
 				        </a>
 				        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                 	       <li><a class="dropdown-item" href="<c:url value='/userDashboard'/>">dashboard</a></li>
+                 	       <li><a class="dropdown-item" href="<c:url value='/userDashboard'/>">Dashboard</a></li>
 				            <li><a class="dropdown-item" href="#contact">Contact Us</a></li>
 				            <li><a class="dropdown-item" href="logout" id="logoutBtn">Logout</a></li>
 				        </ul>
