@@ -1,0 +1,102 @@
+	/* Custom styles */
+	body {
+	    background-color: #f7f7f7; /* Light gray background for a neutral base */
+	    padding-top: 50px;
+	    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	    color: #333; /* Dark text for readability */
+	}
+	
+	.sign-in-box {
+	    background-color: #ffffff; /* White background for the form */
+	    padding: 40px;
+	    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for a clean look */
+	    border-radius: 8px;
+	    max-width: 400px;
+	    margin: 0 auto;
+	    border-top: 4px solid #f8c24b; /* Yello top border */
+	}
+	
+	.form-group input {
+	    height: 45px;
+	    font-size: 16px;
+	    padding-left: 15px;
+	    border: 1px solid #d6d6d6; /* Light gray border */
+	    border-radius: 4px;
+	    width: 100%;
+	    margin-bottom: 15px;
+	    background-color: #f9f9f9; /* Soft gray background */
+	    transition: border-color 0.3s ease, background-color 0.3s ease;
+	}
+	
+	.form-group input:focus {
+	    border-color: #ff5c8d; /* Bright coral color for focus */
+	    background-color: #fff4f7; /* Soft pink background on focus */
+	    outline: none;
+	}
+	
+	.btn-block {
+	    padding: 12px;
+	    background-color: #ff5c8d; /* Bright coral button */
+	    color: white;
+	    border: none;
+	    border-radius: 5px;
+	    font-size: 16px;
+	    cursor: pointer;
+	    transition: background-color 0.3s ease, transform 0.3s ease;
+	}
+	
+	.btn-block:hover {
+	    background-color: #e04a7c; /* Darker coral for hover */
+	    transform: translateY(-2px); /* Slight lift effect on hover */
+	}
+	
+	.terms, .help-links, .business-link {
+	    font-size: 14px;
+	    color: #555; /* Softer gray color for terms and smaller links */
+	}
+	
+	.new-user-section {
+	    margin-top: 25px;
+	    text-align: center;
+	}
+	
+	.new-user-section a {
+	    color: #3fd4d1; /* Bright mint color for new user link */
+	    padding: 8px 25px;
+	    background-color: #e8f5f5; /* Soft mint green background for the link */
+	    border-radius: 20px;
+	    display: inline-block;
+	    font-weight: bold;
+	    text-decoration: none;
+	    transition: background-color 0.3s ease, color 0.3s ease;
+	}
+	
+	.new-user-section a:hover {
+	    background-color: #d0f1f1; /* Lighter mint green on hover */
+	    color: #36a9a0; /* Slightly darker mint color on hover */
+	    text-decoration: none;
+	}
+	
+	.help-links a, .forgot-password {
+	    font-size: 13px;
+	    color: #5ac5e7; /* Light teal color for help and forgot password links */
+	    text-decoration: none;
+	    transition: color 0.3s ease, transform 0.2s ease;
+	}
+	
+	.help-links a:hover, .forgot-password:hover {
+	    color: #3fd4d1; /* Bright mint on hover */
+	    text-decoration: underline;
+	    transform: scale(1.05); /* Slight scale effect on hover */
+	}
+	
+	.forgot-password {
+	    display: block;
+	    margin-top: 10px;
+	    text-align: center;
+	    color: #666;
+	}
+	
+	.forgot-password:hover {
+	    color: #ff5c8d; /* Coral color for forgot password hover */
+	}

@@ -1,0 +1,66 @@
+
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2; /* Light background color */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Transparent Navbar Styles */
+        .navbar {
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: green; /* Green color  the navbar brand */
+        }
+
+        .navbar-brand:hover {
+            color: darkgreen;
+        }
+
+        /* Welcome Text Style (Blink Effect) */
+        .welcome-message {
+            font-size: 1rem;
+            font-weight: bold;
+            color: green;
+            animation: blink 1.5s linear infinite;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown-menu {
+            margin-left: -10px; /* Shift dropdown slightly to the left */
+        }
+
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #f0f8ff; /* Highlight the item on hover */
+            color: #007bff; /* Change text color on hover */
+        }
+
+        /* Footer Style */
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            margin-top: auto; /* Push footer to the bottom */
+        }
+
+        /* Blink Effect for the Welcome Message */
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* No Image/Profile in Navbar */
+        .user-profile {
+            display: none;
+        }
+   

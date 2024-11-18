@@ -1,0 +1,103 @@
+/* Custom styles for New User Registration page */
+body {
+    background-color: #f7f7f7; /* Light gray background for a neutral base */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    padding-top: 50px;
+}
+
+.new-user-box {
+    background-color: #ffffff;
+    padding: 40px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 0 auto;
+    border-top: 4px solid #f8c24b; /* Yello top border */
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group input {
+    height: 45px;
+    font-size: 16px;
+    padding-left: 15px;
+    border: 1px solid #d6d6d6; /* Light gray border */
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #ff5c8d; /* Focus color in bright coral */
+    background-color: #fff4f7; /* Light pink background when focused */
+    outline: none;
+}
+
+.btn-block {
+    padding: 12px;
+    background-color: #ff5c8d; /* Bright coral color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-block:hover {
+    background-color: #e04a7c; /* Darker coral on hover */
+}
+
+.text-center p {
+    font-size: 14px;
+    color: #666;
+}
+
+.text-center a {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.text-center a:hover {
+    text-decoration: underline;
+}
+
+.existing-user-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.existing-user-section a {
+    color: #ff5c8d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.existing-user-section a:hover {
+    color: #e04a7c;
+    text-decoration: underline;
+}
+
+.text-center p a {
+    font-weight: bold;
+}
+
+.text-center p a:hover {
+    color: #0073e6;
+}
+
+/* Responsive Design for Small Devices */
+@media (max-width: 768px) {
+    .new-user-box {
+        padding: 20px;
+        max-width: 100%;
+    }
+}
