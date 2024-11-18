@@ -9,7 +9,7 @@
 	        const productName = $card.find('.card-title').text().trim(); 
 	        const priceText = $card.find('.card-text strong').text(); 
 	        const price = parseFloat(priceText.replace(/[^0-9.-]+/g, "")); 
-	       const selectedQuantity = $card.find('input[name="selectedQuantity"]').val();
+	        const selectedQuantity = $card.find('select[name="selectedQuantity"]').val(); 
 	        const imgUrl = $card.find('img').attr('src'); 
 
 	        $.ajax({
@@ -25,8 +25,6 @@
 	            success: function (response) {
 				            
 				            $("#success-alert").fadeIn(400).delay(2000).fadeOut(400);
-				            alert(response)
-				            
 				            if (response.cartItemCount !== undefined) {
 				                $("#cart-count").text(response.cartItemCount);
 				                if (response.cartItemCount > 0) {
