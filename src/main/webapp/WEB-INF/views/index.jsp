@@ -267,13 +267,7 @@
 									<p class="card-text">
 										<strong>₹100</strong>
 									</p>
-									<div class="mb-3">
-										<select class="form-select" id="selectedQuantity"
-											name="selectedQuantity">
-											<option value="500g" data-price="100">500g - ₹100</option>
-											
-										</select>
-									</div>
+									<p class=" mb-3 card-text weight">500gm</p>
 									<button type="button"
 										class="btn btn-outline-danger add-to-cart">Add to
 										Cart</button>
@@ -293,13 +287,7 @@
 									<p class="card-text">
 										<strong>₹125</strong>
 									</p>
-									<div class="mb-3">
-										<select class="form-select" id="selectedQuantity"
-											name="selectedQuantity">
-											<option value="500g" data-price="125">500g - ₹125</option>
-											
-										</select>
-									</div>
+									<p class=" mb-3 card-text weight">500gm</p>
 									<button type="button"
 										class="btn btn-outline-danger add-to-cart">Add to
 										Cart</button>
@@ -319,12 +307,7 @@
 									<p class="card-text">
 										<strong>₹45</strong>
 									</p>
-									<div class="mb-3">
-										<select class="form-select" id="selectedQuantity"
-											name="selectedQuantity">
-											<option value="500g" data-price="45">500g - ₹45</option>
-										</select>
-									</div>
+									<p class=" mb-3 card-text weight">500gm</p>
 									<a href="#" class="btn btn-outline-danger add-to-cart">Add
 										to cart</a>
 								</div>
@@ -343,19 +326,14 @@
 									<p class="card-text">
 										<strong>₹35</strong>
 									</p>
-									<div class="mb-3">
-										<select class="form-select" id="selectedQuantity"
-											name="selectedQuantity">
-											<option value="500g" data-price="15">500g - ₹15</option>
-										</select>
-									</div>
+									<p class=" mb-3 card-text weight">500gm</p>
 									<a href="#" class="btn btn-outline-danger add-to-cart">Add
 										to cart</a>
 								</div>
 							</div>
 						</div>
 
-						<!-- 5th card (Tomatoes) -->
+						
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-veg shadow">
 								<img src="images/product/tomatoes.jpg" class="card-img-top"
@@ -367,19 +345,14 @@
 									<p class="card-text">
 										<strong>₹40</strong>
 									</p>
-									<div class="mb-3">
-										<select class="form-select" id="selectedQuantity"
-											name="selectedQuantity">
-											<option value="500g" data-price="20">500g - ₹20</option>
-										</select>
-									</div>
+									<p class=" mb-3 card-text weight">500gm</p>
 									<a href="#" class="btn btn-outline-danger add-to-cart">Add
 										to cart</a>
 								</div>
 							</div>
 						</div>
 
-						<!-- 6th card (Onions) -->
+						
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-veg shadow">
 								<img src="images/product/onions.jpg" class="card-img-top"
@@ -391,12 +364,7 @@
 									<p class="card-text">
 										<strong>₹50</strong>
 									</p>
-									<div class="mb-3">
-										<select class="form-select" id="selectedQuantity"
-											name="selectedQuantity">
-											<option value="500g" data-price="25">500g - ₹25</option>
-										</select>
-									</div>
+									<p class=" mb-3 card-text weight">500gm</p>
 									<a href="#" class="btn btn-outline-danger add-to-cart">Add
 										to cart</a>
 								</div>
