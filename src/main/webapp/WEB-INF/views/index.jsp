@@ -63,6 +63,7 @@
 							<li><a class="dropdown-item" href="dal-pulses">Dal/Pulses</a></li>
 							<li><a class="dropdown-item" href="grocery">Wholesome Grains</a></li>
 							<li><a class="dropdown-item" href="grocery">Cereals</a></li>
+							<li><a class="dropdown-item" href="grocery">Pasta</a></li>
 						</ul></li>
 				</ul>
 				<form class="d-flex mx-auto" role="search">
