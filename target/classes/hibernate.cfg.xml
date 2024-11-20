@@ -14,6 +14,8 @@
         <!-- Mapping class important to link classes -->
         <mapping class="com.info.MysoreMart.Model.Userprofile"/>
         <mapping class="com.info.MysoreMart.Model.CartDetails"/>
+        <mapping class="com.info.MysoreMart.Model.Product"/>
+        <mapping class="com.info.MysoreMart.Model.Categories"/>
        
     </session-factory>
 </hibernate-configuration>

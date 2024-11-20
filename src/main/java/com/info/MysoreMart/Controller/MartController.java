@@ -34,6 +34,11 @@ public class MartController {
         return "register"; 
     }
     
+    @GetMapping("/search")
+    public String search() {
+        return "search"; 
+    }
+    
     @GetMapping("/forget")
     public String forgot() {
         return "forget";  
