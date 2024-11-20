@@ -65,6 +65,7 @@
                             <li><a class="dropdown-item" href="grocery">Cereals</a></li>
                             <li><a class="dropdown-item" href="grocery">Pasta</a></li>
                              <li><a class="dropdown-item" href="grocery">Noodles</a></li>
+                             <li><a class="dropdown-item" href="grocery">Rice</a></li>
 						</ul></li>
 				</ul>
 				<form class="d-flex mx-auto" role="search">
