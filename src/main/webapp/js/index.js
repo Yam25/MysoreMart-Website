@@ -1,47 +1,48 @@
 
 
+$(document).ready(function() {
+// Use event delegation to handle clicks on dynamically generated "Add to Cart" buttons
+ $(document).on('click', '.add-to-cart', function(e) {
+        e.preventDefault(); 
 
-	$(document).ready(function () {
-	    $(".add-to-cart").on("click", function (e) {
-	        e.preventDefault(); 
+        const productName = $(this).data('product-name');
+        const price = $(this).data('product-price');
+        const selectedQuantity = $(this).data('product-quantity');
+        const imgUrl = $(this).data('product-img');  /* if you want to get data dynamically then we need to pass data-attr explicity for add to cart */
 
-	        const $card = $(this).closest('.card'); 
-	        const productName = $card.find('.card-title').text().trim(); 
-	        const priceText = $card.find('.card-text strong').text(); 
-	        const price = parseFloat(priceText.replace(/[^0-9.-]+/g, "")); 
-	        const selectedQuantity = $card.find('.card-text.weight').text().trim(); 
-	        const imgUrl = $card.find('img').attr('src'); 
+       
+        $.ajax({
+            type: "POST",
+            url: baseUrl, // This is the URL where products will be added to cart
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                productName: productName,
+                price: price,
+                selectedQuantity: selectedQuantity,
+                img: imgUrl
+            },
+            success: function(response) {
+                // Show success message
+                $("#success-alert").fadeIn(400).delay(2000).fadeOut(400);
 
-	        $.ajax({
-	            type: "POST",
-	            url: baseUrl, //using baseUrl which is in index.jsp
-	            contentType: 'application/x-www-form-urlencoded',
-	            data: {
-	                pname: productName,
-	                price: price,
-	                selectedQuantity: selectedQuantity,
-	                img: imgUrl 
-	            },
-	            success: function (response) {
-				            
-				            $("#success-alert").fadeIn(400).delay(2000).fadeOut(400);
-				            if (response.cartItemCount !== undefined) {
-				                $("#cart-count").text(response.cartItemCount);
-				                if (response.cartItemCount > 0) {
-				                    $("#cart-count").show(); 
-				                } else {
-				                    $("#cart-count").hide(); 
-				                }
-				            }
-				        },
-	            error: function () {
-		          alert("Login is required to add items to the cart. Redirecting to login page.");
-			      window.location.href = "/MysoreMart/login"; 
-					        
-	            }
-	        });
-	    });
-	});
+                // Update the cart item count in the header
+                if (response.cartItemCount !== undefined) {
+                    $("#cart-count").text(response.cartItemCount);
+                    if (response.cartItemCount > 0) {
+                        $("#cart-count").show(); // Show the cart count if there are items
+                    } else {
+                        $("#cart-count").hide(); // Hide the cart count if it's zero
+                    }
+                }
+            },
+            error: function(xhr) {
+                alert('Login is required to add items to the cart. Redirecting to login page.');
+                window.location.href = "/MysoreMart/login"; // Redirect to login page if user is not logged in
+            }
+        });
+    });
+});
+
 	
 	/*// Dynamic price update based on selected quantity
 			    $('.product').each(function() { //each card class should have common class name like product or sm

@@ -62,15 +62,14 @@
 							<li><a class="dropdown-item" href="spices">Spices</a></li>
 							<li><a class="dropdown-item" href="dal-pulses">Dal/Pulses</a></li>
 							<li><a class="dropdown-item" href="grocery">Wholesome Grains</a></li>
-                            <li><a class="dropdown-item" href="grocery">Cereals</a></li>
-                            
+                           
                              
 						</ul></li>
 				</ul>
 				<form class="d-flex mx-auto" role="search">
-					<input class="form-control fs-5 me-2" type="search"
-						placeholder="Search" aria-label="Search" style="min-width: 300px;">
-					<button class="btn btn-outline-success" type="submit">Search</button>
+					<input class="form-control fs-5 me-2" type="text"
+						placeholder="Search" style="min-width: 300px;"
+						onfocus="redirectToSearchPage()" />
 				</form>
 				
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
@@ -403,5 +402,10 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
+		<script>
+    function redirectToSearchPage() {
+        window.location.href = "search";
+    }
+</script>
 </body>
 </html>

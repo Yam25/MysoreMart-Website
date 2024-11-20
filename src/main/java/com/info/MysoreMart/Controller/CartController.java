@@ -25,7 +25,7 @@ public class CartController {
     //add functionality no duplicate values allowed
     @PostMapping("/add") 
     public ResponseEntity<String> insertProduct(
-            @RequestParam("pname") String productName,
+            @RequestParam("productName") String productName,
             @RequestParam("price") double price,
             @RequestParam("selectedQuantity") String selectedQuantity, 
             @RequestParam("img") String imgUrl,
