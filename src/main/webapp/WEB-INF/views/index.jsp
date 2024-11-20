@@ -63,9 +63,7 @@
 							<li><a class="dropdown-item" href="dal-pulses">Dal/Pulses</a></li>
 							<li><a class="dropdown-item" href="grocery">Wholesome Grains</a></li>
                             <li><a class="dropdown-item" href="grocery">Cereals</a></li>
-                            <li><a class="dropdown-item" href="grocery">Pasta</a></li>
-                             <li><a class="dropdown-item" href="grocery">Noodles</a></li>
-                            <li><a class="dropdown-item" href="grocery">Rice</a></li>
+                            
                              
 						</ul></li>
 				</ul>
@@ -86,7 +84,7 @@
 				            Hello, User
 				        </a>
 				        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                 	       <li><a class="dropdown-item" href="<c:url value='/userDashboard'/>">dashboard</a></li>
+                 	       <li><a class="dropdown-item" href="<c:url value='/userDashboard'/>">Dashboard</a></li>
 				            <li><a class="dropdown-item" href="#contact">Contact Us</a></li>
 				            <li><a class="dropdown-item" href="logout" id="logoutBtn">Logout</a></li>
 				        </ul>
@@ -144,7 +142,7 @@
 				</div>
 				<div class="carousel-item">
 					<img src="images/product/veggies.jpg"
-						class="d-block w-100 c-img img-fluid " alt="Vegetables">
+						class="d-block w-100 c-img img-fluid" alt="Vegetables">
 				</div>
 				<div class="carousel-item">
 					<img src="images/product/milk and dairy products.jpg"
@@ -262,7 +260,7 @@
 						
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-fruits shadow">
-								<img src="images/product/apples.jpg" class="card-img-top c-img"
+								<img src="images/product/apples.jpg" class="card-img-top"
 									alt="Apples">
 								<div class="card-body">
 									<h5 class="card-title text-center">Apples</h5>
