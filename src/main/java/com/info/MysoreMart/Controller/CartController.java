@@ -3,8 +3,11 @@ package com.info.MysoreMart.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,7 +32,7 @@ public class CartController {
             @RequestParam("price") double price,
             @RequestParam("selectedQuantity") String selectedQuantity, 
             @RequestParam("img") String imgUrl,
-            HttpSession session) {
+            HttpSession session, Model model) {
 
         // Retrieve the user ID from the session
         Long userId = (Long) session.getAttribute("userId");
@@ -46,7 +49,6 @@ public class CartController {
             existingCartItem.setQuanCount(existingCartItem.getQuanCount() + 1); // Increment quantity by 1
 
             try {
-                
                 cartService.updateQuantity(existingCartItem.getId(), userId, existingCartItem.getQuanCount());
                 return ResponseEntity.ok("Item quantity updated successfully"); 
             } catch (Exception e) {
@@ -54,7 +56,7 @@ public class CartController {
                 return ResponseEntity.status(500).body("Error updating item quantity");
             }
         } else {
-            // Create a new CartDetails object for a new item
+            
             CartDetails cartDetails = new CartDetails();
             cartDetails.setProductName(productName);
             cartDetails.setPrice(price);
@@ -66,8 +68,8 @@ public class CartController {
             try {
                 cartService.addCartItem(cartDetails); // Save the new cart item
                
-                int currentCount = (Integer) session.getAttribute("cartItemCount");
-                session.setAttribute("cartItemCount", currentCount + 1); 
+                List<CartDetails> cartItems = cartService.getAllCartItems(userId);
+                model.addAttribute("cartItems", cartItems);
                 return ResponseEntity.ok("Item added to cart successfully");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -88,8 +90,7 @@ public class CartController {
         boolean deleted = cartService.deleteCartItemById(cartId);
         if (deleted) {
         	
-            int currentCount = (Integer) session.getAttribute("cartItemCount");
-            session.setAttribute("cartItemCount", Math.max(0, currentCount - 1)); // Decrement by 1, but not below 0
+            
             return ResponseEntity.ok("Item deleted successfully.");
         } else {
             return ResponseEntity.status(404).body("Item not found.");

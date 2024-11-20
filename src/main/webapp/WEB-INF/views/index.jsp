@@ -1,3 +1,5 @@
+<%@page import="com.info.MysoreMart.Model.CartDetails"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -28,7 +30,6 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-	
 	var baseUrl = "<c:url value='/add'/>";
 	var baseUrl4 = "<c:url value='/logout'/>";
 </script>
@@ -61,9 +62,10 @@
 							<li><a class="dropdown-item" href="dryFruits">Dry Fruits</a></li>
 							<li><a class="dropdown-item" href="spices">Spices</a></li>
 							<li><a class="dropdown-item" href="dal-pulses">Dal/Pulses</a></li>
-							<li><a class="dropdown-item" href="grocery">Wholesome Grains</a></li>
-                           
-                             
+							<li><a class="dropdown-item" href="grocery">Wholesome
+									Grains</a></li>
+
+
 						</ul></li>
 				</ul>
 				<form class="d-flex mx-auto" role="search">
@@ -71,45 +73,44 @@
 						placeholder="Search" style="min-width: 300px;"
 						onfocus="redirectToSearchPage()" />
 				</form>
-				
-				<ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-				    <!-- Login/Signup Button -->
-				   	<a class="nav-link" href="login" id="loginSignupLink">
-			        <button id="loginBtn" type="button" class="btn btn-outline-dark login-signup-btn">Login/SignUp</button></a>
-				
-				    <!-- Hello Button with Dropdown (Initially hidden) -->
-				    <li class="nav-item dropdown" id="helloUser" style="display: none;">
-				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				            Hello, User
-				        </a>
-				        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                 	       <li><a class="dropdown-item" href="<c:url value='/userDashboard'/>">Dashboard</a></li>
-				            <li><a class="dropdown-item" href="#contact">Contact Us</a></li>
-				            <li><a class="dropdown-item" href="logout" id="logoutBtn">Logout</a></li>
-				        </ul>
-				    </li>
-				    
-					<li class="nav-item"><a class="nav-link"
-					href="/MysoreMart/cart" style="position: relative;"> <i
-						class="bi bi-cart4 text-danger fs-2"></i> <span id="cart-count"
-						class="badge bg-danger"
-						<%// Get the cart item count from the session
-							Integer cartItemCount = (Integer) session.getAttribute("cartItemCount");
-							if (cartItemCount == null) {
-								cartItemCount = 0; // Default to 0 if not found
-							}%>
-													<%// Conditional style to show or hide based on item count
-							if (cartItemCount > 0) {%>
-													style="display: inline;"> <%=cartItemCount%> <!-- Display the count -->
-							<%
-							} else {
-							%> style="display: none;">0 <!-- Display 0 if no items, though hidden -->
-							<%
-							}
-							%>
-					</span>
-				</a></li>
 
+				<ul
+					class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
+					<!-- Login/Signup Button -->
+					<a class="nav-link" href="login" id="loginSignupLink">
+						<button id="loginBtn" type="button"
+							class="btn btn-outline-dark login-signup-btn">Login/SignUp</button>
+					</a>
+
+					<!-- Hello Button with Dropdown (Initially hidden) -->
+					<li class="nav-item dropdown" id="helloUser" style="display: none;">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Hello, User </a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item"
+								href="<c:url value='/userDashboard'/>">Dashboard</a></li>
+							<li><a class="dropdown-item" href="#contact">Contact Us</a></li>
+							<li><a class="dropdown-item" href="logout" id="logoutBtn">Logout</a></li>
+						</ul>
+					</li>
+
+					<%
+					Integer cartItemCount = (Integer) request.getAttribute("cartItemCount");
+					%>
+
+					<li class="nav-item"><a class="nav-link"
+						href="/MysoreMart/cart" style="position: relative;"> <i
+							class="bi bi-cart4 text-danger fs-2"></i> <%
+ if (cartItemCount != null && cartItemCount > 0) {
+ %> <span class="badge item" id="cart-item-count-nav"> <%=cartItemCount%>
+						</span> <%
+ } else {
+ %> <span class="badge item" id="cart-item-count-nav"
+							style="display: none;"></span> <%
+ }
+ %>
+					</a></li>
 				</ul>
 			</div>
 		</div>
@@ -256,7 +257,7 @@
 
 				<div class="container">
 					<div class="row">
-						
+
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-fruits shadow">
 								<img src="images/product/apples.jpg" class="card-img-top"
@@ -276,7 +277,7 @@
 							</div>
 						</div>
 
-						
+
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-fruits shadow">
 								<img src="images/product/blueberries.jpg" class="card-img-top"
@@ -296,7 +297,7 @@
 							</div>
 						</div>
 
-						
+
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-fruits shadow">
 								<img src="images/product/banana.jpg" class="card-img-top"
@@ -315,7 +316,7 @@
 							</div>
 						</div>
 
-						
+
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-veg shadow">
 								<img src="images/product/cucumber.jpg" class="card-img-top"
@@ -334,7 +335,7 @@
 							</div>
 						</div>
 
-						
+
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-veg shadow">
 								<img src="images/product/tomatoes.jpg" class="card-img-top"
@@ -353,7 +354,7 @@
 							</div>
 						</div>
 
-						
+
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-veg shadow">
 								<img src="images/product/onions.jpg" class="card-img-top"
@@ -397,15 +398,15 @@
 		</div>
 	</footer>
 	<script src="<c:url value='/js/index.js'/>"></script>
-	<script src="<c:url value='/js/userProfile/userLogin.js'/>"></script> 
+	<script src="<c:url value='/js/userProfile/userLogin.js'/>"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
-		<script>
-    function redirectToSearchPage() {
-        window.location.href = "search";
-    }
-</script>
+	<script>
+		function redirectToSearchPage() {
+			window.location.href = "search";
+		}
+	</script>
 </body>
 </html>

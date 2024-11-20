@@ -25,15 +25,7 @@ $(document).ready(function() {
                 // Show success message
                 $("#success-alert").fadeIn(400).delay(2000).fadeOut(400);
 
-                // Update the cart item count in the header
-                if (response.cartItemCount !== undefined) {
-                    $("#cart-count").text(response.cartItemCount);
-                    if (response.cartItemCount > 0) {
-                        $("#cart-count").show(); // Show the cart count if there are items
-                    } else {
-                        $("#cart-count").hide(); // Hide the cart count if it's zero
-                    }
-                }
+                
             },
             error: function(xhr) {
                 alert('Login is required to add items to the cart. Redirecting to login page.');
