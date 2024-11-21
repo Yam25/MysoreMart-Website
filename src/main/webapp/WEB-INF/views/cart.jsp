@@ -158,7 +158,7 @@
 									id="cart-total">0.00</span></strong>
 							</h5>
 							<hr>
-							<button class="btn btn-success w-100">Checkout</button>
+							<button class="btn btn-success w-100" id="checkout-button" >Checkout</button>
 						</div>
 					</div>
 				</div>

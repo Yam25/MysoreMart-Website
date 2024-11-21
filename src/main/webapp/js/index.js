@@ -13,7 +13,7 @@ $(document).ready(function() {
        
         $.ajax({
             type: "POST",
-            url: baseUrl, // This is the URL where products will be added to cart
+            url: baseUrl, 
             contentType: 'application/x-www-form-urlencoded',
             data: {
                 productName: productName,
@@ -22,7 +22,7 @@ $(document).ready(function() {
                 img: imgUrl
             },
             success: function(response) {
-                // Show success message
+                
                 $("#success-alert").fadeIn(400).delay(2000).fadeOut(400);
 
                 
