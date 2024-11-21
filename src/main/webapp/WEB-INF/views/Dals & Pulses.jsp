@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>MysoreMart - Shop the Best Deals on Groceries &
-	Provisions</title>
+	Provisions</title> 
 <link rel="icon" href="images/product/mart.png" type="image/png">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -30,11 +30,11 @@ body {
 
 body {
 	background-size: cover;
-	background-position: center;
-	color: #333;
+	background-position: center; 
+	color: #333; 
 }
 
-.biscuit-card {
+.dal-card {
 	width: 300px;
 	height: 460px;
 	margin: auto;
@@ -46,13 +46,13 @@ body {
 	transition: transform 0.2s;
 }
 
-.biscuit-card img {
+.dal-card img {
 	width: 100%;
 	height: 200px;
 	object-fit: cover;
 }
 
-.biscuit-card:hover {
+.dal-card:hover {
 	transform: scale(1.05);
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -148,6 +148,10 @@ input[type="text"] {
 	border-radius: 5px;
 }
 
+.cart-icon {
+	position: relative;
+}
+
 #cart-item-count-nav {
 	position: absolute;
 	top: -5px;
@@ -169,7 +173,7 @@ input[type="text"] {
     const itemsPerPage = 6;
 
     function showPage(page) {
-        const items = document.querySelectorAll('.biscuit-item');
+        const items = document.querySelectorAll('.dal-item');
         const start = (page - 1) * itemsPerPage;
         const end = start + itemsPerPage;
 
@@ -185,7 +189,7 @@ input[type="text"] {
     }
 
     function updatePagination(page) {
-        const totalItems = document.querySelectorAll('.biscuit-item').length;
+        const totalItems = document.querySelectorAll('.dal-item').length;
         const totalPages = Math.ceil(totalItems / itemsPerPage);
         let paginationHtml = '';
 
@@ -197,9 +201,9 @@ input[type="text"] {
         currentPage = page;
     }
 
-    function searchBiscuits() {
+    function searchDals() {
         const searchInput = document.getElementById('searchInput').value.toLowerCase();
-        const items = document.querySelectorAll('.biscuit-item');
+        const items = document.querySelectorAll('.dal-item');
         items.forEach(item => {
             const title = item.querySelector('.card-title').textContent.toLowerCase();
             if (title.includes(searchInput)) {
@@ -216,7 +220,6 @@ input[type="text"] {
         showPage(1);
     };
     
-   
 </script>
 <script>
         // Define the base URL for AJAX requests
@@ -225,12 +228,14 @@ input[type="text"] {
     </script>
 </head>
 <body>
+
 <%
     String userFullName = (String) session.getAttribute("userFullName");
     if (userFullName == null) {
         userFullName = "User"; 
     }
 %>
+
 	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
 		<div class="container">
 			<a class="navbar-brand ms-0" href="/MysoreMart/"> <img
@@ -252,15 +257,16 @@ input[type="text"] {
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="fruits">Fruits</a></li>
 							<li><a class="dropdown-item" href="vegetables">Vegetables</a></li>
+							<li><a class="dropdown-item" href="biscuits">Sip-Snack</a></li>
 							<li><a class="dropdown-item" href="dairyProducts">Dairy
 									Products</a></li>
 							<li><a class="dropdown-item" href="dryFruits">Dry Fruits</a></li>
 							<li><a class="dropdown-item" href="spices">Spices/Oils</a></li>
-							<li><a class="dropdown-item" href="Dals & Pulses">Dal/Pulses</a></li>
 							<li><a class="dropdown-item" href="grocery">Wholesome
 									Grains</a></li>
 						</ul></li>
 				</ul>
+				
 				<ul
 					class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
 					<a class="nav-link" href="login" id="loginSignupLink">
@@ -300,21 +306,22 @@ input[type="text"] {
 			</div>
 		</div>
 	</nav>
-
+	
 	<div id="success-alert" class="alert alert-success" role="alert"
-		style="display: none;">Item has been added to cart successfully.</div>
+		style="display: none;">Item has been added to cart successfully.
+	</div>
 
 	<div class="text-center mb-4">
 		<div class="search-container">
 			<input type="text" id="searchInput" class="form-control"
-				placeholder="Search biscuits by name..." onkeyup="searchBiscuits()">
+				placeholder="Search dals/pulses by name..." onkeyup="searchDals()">
 			<i class="fas fa-search search-icon"></i>
 		</div>
 	</div>
-	
+
 	<form action="add" method="post" id="cart-form">
 		<div id="menu" class="container mt-5">
-			<h2 class="text-center mb-4">Indian Biscuits</h2>
+			<h2 class="text-center mb-4">Indian Dals & Pulses</h2>
 			<div class="row">
 
 				<%
@@ -322,8 +329,8 @@ input[type="text"] {
 				for (Product prod : productItems) {
 				%>
 
-				<div class="col-md-4 mb-4 biscuit-item">
-					<div class="card biscuit-card">
+				<div class="col-md-4 mb-4 dal-item">
+					<div class="card dal-card">
 						<img src="<%=prod.getProductImage()%>" class="card-img-top"
 							alt="<%=prod.getProductName()%>">
 						<div class="card-body">
@@ -357,17 +364,16 @@ input[type="text"] {
 		</div>
 	</form>
 
-	
-
 	<div id="pagination" class="pagination-container"></div>
 
 	<footer class="text-center mt-5">
-		<p>Enjoy Indian Biscuits</p>
+		<p>Dals & Pulses - The Taste of Tradition!</p>
+	</footer>
+	<footer class="text-center mt-5">
 		<p>
 			<a href="/MysoreMart/" class="text-success">Go back to Home</a>
 		</p>
 	</footer>
-
 	<footer class="bg-dark py-3 mt-3">
 		<div id="contact" class="conatiner text-light text-center">
 			<h4>Contact Us</h4>

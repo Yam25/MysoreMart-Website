@@ -17,7 +17,7 @@ public class UserProfileRepository {
     private SessionFactory sessionFactory;
 
     public UserProfileRepository() {
-        // Initialize the sessionFactory (or inject it via Spring)
+      
         sessionFactory = new Configuration().configure().addAnnotatedClass(Userprofile.class).buildSessionFactory();
     }
 
@@ -108,10 +108,10 @@ public class UserProfileRepository {
     public Optional<Userprofile> findById(Long userId) {
         Session session = sessionFactory.openSession();
         try {
-            Userprofile user = session.get(Userprofile.class, userId); // Fetch user by ID
-            return Optional.ofNullable(user); // Wrap the result in Optional
+            Userprofile user = session.get(Userprofile.class, userId);
+            return Optional.ofNullable(user); 
         } finally {
-            session.close(); // Ensure the session is closed
+            session.close();
         }
     }
 

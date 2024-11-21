@@ -32,6 +32,38 @@
 
 .search-bar-container {
 	margin-top: 20px;
+	position: relative;
+	width: 70%;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.search-icon {
+	position: absolute;
+	top: 50%;
+	right: 15px;
+	transform: translateY(-50%);
+	color: #aaa;
+	font-size: 1rem;
+}
+
+#searchBar {
+	width: 100%;
+	padding: 10px 15px 10px 15px;
+	padding-right: 40px;
+	font-size: 1rem;
+	border: 1px solid #ddd;
+	outline: none;
+	transition: box-shadow 0.3s ease;
+}
+
+#searchBar:focus {
+	box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+	border-color: #007bff;
+}
+
+#searchBar::placeholder {
+	color: #aaa;
 }
 
 .product-item {
@@ -103,7 +135,7 @@
 }
 
 .category-button:hover {
-    transform: scale(1.05); 
+    transform: scale(1.2); 
 }
 
 .category-button:hover .category-img {

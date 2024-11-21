@@ -23,7 +23,14 @@
 </head>
 
 <body>
-   <nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+<%
+    String userFullName = (String) session.getAttribute("userFullName");
+    if (userFullName == null) {
+        userFullName = "User"; 
+    }
+%>
+   <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
 		<div class="container">
 			<a class="navbar-brand ms-0" href="/MysoreMart/"> <img
 				src="images/product/mart.png" alt="Mysore Mart" width="200"
@@ -43,7 +50,7 @@
 				    <!-- Hello Button with Dropdown (Initially hidden) -->
 				    <li class="nav-item dropdown" id="helloUser" style="display: none;">
 				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				            Hello, User
+				           <strong style="font-size:17px;">Hello,  <%= userFullName %></strong>
 				        </a>
 				        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                  	       <li><a class="dropdown-item" href="<c:url value='/forget'/>">Update Password</a></li>

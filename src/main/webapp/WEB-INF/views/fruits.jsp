@@ -21,8 +21,6 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
@@ -152,20 +150,19 @@ input[type="text"] {
 }
 
 #cart-item-count-nav {
-    position: absolute;
-    top: -5px;  
-    right: -5px; 
-    background-color: red; 
-    color: white; 
-    padding: 5px 10px; 
-    border-radius: 50%; 
-    font-size: 14px; 
-    font-weight: bold; 
-    display: inline-block;
-    min-width: 20px; 
-    text-align: center; 
+	position: absolute;
+	top: -5px;
+	right: -5px;
+	background-color: red;
+	color: white;
+	padding: 5px 10px;
+	border-radius: 50%;
+	font-size: 14px;
+	font-weight: bold;
+	display: inline-block;
+	min-width: 20px;
+	text-align: center;
 }
-
 </style>
 
 <script>
@@ -223,11 +220,19 @@ input[type="text"] {
 <script>
         // Define the base URL for AJAX requests
         var baseUrl = "<c:url value='/add'/>";
+        var baseUrl4 = "<c:url value='/logout'/>";
     </script>
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<%
+    String userFullName = (String) session.getAttribute("userFullName");
+    if (userFullName == null) {
+        userFullName = "User"; 
+    }
+%>
+
+	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
 		<div class="container">
 			<a class="navbar-brand ms-0" href="/MysoreMart/"> <img
 				src="images/product/mart.png" alt="Mysore Mart" width="200"
@@ -259,21 +264,25 @@ input[type="text"] {
 									Grains</a></li>
 						</ul></li>
 				</ul>
-				<ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-				  	<a class="nav-link" href="login" id="loginSignupLink">
-			        <button id="loginBtn" type="button" class="btn btn-outline-dark login-signup-btn">Login/SignUp</button></a>
-				
-				    <li class="nav-item dropdown" id="helloUser" style="display: none;">
-				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				            Hello, User
-				        </a>
-				        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                 	       <li><a class="dropdown-item" href="<c:url value='/userDashboard'/>">Dashboard</a></li>
-				            <li><a class="dropdown-item" href="#contact">Contact Us</a></li>
-				            <li><a class="dropdown-item" href="logout" id="logoutBtn">Logout</a></li>
-				        </ul>
-				    </li>
-				    
+				<ul
+					class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
+					<a class="nav-link" href="login" id="loginSignupLink">
+						<button id="loginBtn" type="button"
+							class="btn btn-outline-dark login-signup-btn">Login/SignUp</button>
+					</a>
+
+					<li class="nav-item dropdown" id="helloUser" style="display: none;">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<strong style="font-size:17px;">Hello,  <%= userFullName %></strong> </a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item"
+								href="<c:url value='/userDashboard'/>">Dashboard</a></li>
+							<li><a class="dropdown-item" href="#contact">Contact Us</a></li>
+							<li><a class="dropdown-item" href="logout" id="logoutBtn">Logout</a></li>
+						</ul>
+					</li>
+
 					<%
 					Integer cartItemCount = (Integer) request.getAttribute("cartItemCount");
 					%>
@@ -313,9 +322,9 @@ input[type="text"] {
 			<div class="row">
 
 				<%
-			List<Product> productItems = (List<Product>) request.getAttribute("productItems");
-			for (Product prod : productItems) {
-		%>
+				List<Product> productItems = (List<Product>) request.getAttribute("productItems");
+				for (Product prod : productItems) {
+				%>
 
 				<div class="col-md-4 mb-4 fruit-item">
 					<div class="card fruits-card">
@@ -333,20 +342,14 @@ input[type="text"] {
 								<strong>&#8377;<%=prod.getProductPrice()%></strong>
 							</p>
 							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="<%=prod.getProductQuantity()%>" data-price="40">
-										<%=prod.getProductQuantity()%> -
-										<%=prod.getProductPrice()%>
-									</option>
-								</select>
+								<p class="card-text weight"><%=prod.getProductQuantity()%></p>
 							</div>
 							<button class="btn btn-outline-danger add-to-cart"
-								data-product-id="<%= prod.getProductId() %>"
-								data-product-name="<%= prod.getProductName() %>"
-								data-product-price="<%= prod.getProductPrice() %>"
-								data-product-quantity="<%= prod.getProductQuantity() %>"
-								data-product-img="<%= prod.getProductImage() %>">Add to
+								data-product-id="<%=prod.getProductId()%>"
+								data-product-name="<%=prod.getProductName()%>"
+								data-product-price="<%=prod.getProductPrice()%>"
+								data-product-quantity="<%=prod.getProductQuantity()%>"
+								data-product-img="<%=prod.getProductImage()%>">Add to
 								Cart</button>
 						</div>
 					</div>

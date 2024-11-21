@@ -11,14 +11,16 @@
 <title>Product Search</title>
 <link rel="icon" href="images/product/mart.png" sizes="256x256"
 	type="image/png">
-	<link href="<c:url value='/css/search.css'/>" rel="stylesheet" />
+<link href="<c:url value='/css/search.css'/>" rel="stylesheet" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
 	rel="stylesheet">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-	<script
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
 	var baseUrl = "<c:url value='/add'/>";
@@ -26,7 +28,13 @@
 </script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<%
+    String userFullName = (String) session.getAttribute("userFullName");
+    if (userFullName == null) {
+        userFullName = "User"; 
+    }
+%>
+	<nav class="navbar navbar-expand-lg bg-light sticky-top">
 		<div class="container">
 			<a class="navbar-brand ms-0" href="/MysoreMart/"> <img
 				src="images/product/mart.png" alt="Mysore Mart" width="200"
@@ -39,22 +47,32 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-								
-				<ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-				  	<a class="nav-link" href="login" id="loginSignupLink">
-			        <button id="loginBtn" type="button" class="btn btn-outline-dark login-signup-btn">Login/SignUp</button></a>
-				
-				    <li class="nav-item dropdown" id="helloUser" style="display: none;">
-				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				            Hello, User
-				        </a>
-				        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                 	       <li><a class="dropdown-item" href="<c:url value='/userDashboard'/>">Dashboard</a></li>
-				            <li><a class="dropdown-item" href="#contact">Contact Us</a></li>
-				            <li><a class="dropdown-item" href="logout" id="logoutBtn">Logout</a></li>
-				        </ul>
-				    </li>
-				    
+			<div class="container mt-4">
+			<div class="search-bar-container">
+				<input type="text" id="searchBar" placeholder="Search products..."
+					class="form-control mb-3" /> <i class="fas fa-search search-icon"></i>
+			</div>
+			</div>
+
+				<ul
+					class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
+					<a class="nav-link" href="login" id="loginSignupLink">
+						<button id="loginBtn" type="button"
+							class="btn btn-outline-dark login-signup-btn">Login/SignUp</button>
+					</a>
+
+					<li class="nav-item dropdown" id="helloUser" style="display: none;">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<strong style="font-size:17px;">Hello,  <%= userFullName %></strong> </a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item"
+								href="<c:url value='/userDashboard'/>">Dashboard</a></li>
+							<li><a class="dropdown-item" href="#contact">Contact Us</a></li>
+							<li><a class="dropdown-item" href="logout" id="logoutBtn">Logout</a></li>
+						</ul>
+					</li>
+
 					<%
 					Integer cartItemCount = (Integer) request.getAttribute("cartItemCount");
 					%>
@@ -75,58 +93,48 @@
 			</div>
 		</div>
 	</nav>
-	<main class="bg-light">
+	<main>
 		<div id="success-alert" class="alert alert-success" role="alert"
 			style="display: none;">Item has been added to cart
 			successfully.</div>
-	<div class="container">
+		<div class="container">
+			<div id="productResults" class="row mt-4"></div>
 
-		<div class="search-bar-container">
-			<input type="text" id="searchBar" placeholder="Search products..."
-				class="form-control mb-3" />
 		</div>
-         
-		<div id="productResults" class="row"></div>
-		
-	</div>	
-	
-	<div class="category-buttons-container">
-    <a href="fruits" class="category-button">
-        <img src="images/product/fruits.jpg" alt="Fruits" class="category-img">
-        <span class="category-label">Fruits</span>
-    </a>
-    <a href="vegetable" class="category-button">
-        <img src="images/product/veggies.jpg" alt="Vegetables" class="category-img">
-        <span class="category-label">Vegetables</span>
-    </a>
-    <a href="biscuits" class="category-button">
-        <img src="images/product/snacks.jpg" alt="Snacks" class="category-img">
-        <span class="category-label">Snacks</span>
-    </a>
-    <a href="dairyProducts" class="category-button">
-        <img src="images/product/milk and dairy products.jpg" alt="Dairy Products" class="category-img">
-        <span class="category-label">Dairy Products</span>
-    </a>
-    <a href="dryFruits" class="category-button">
-        <img src="images/product/dry-fruits.jpg" alt="Dry Fruits" class="category-img">
-        <span class="category-label">Dry Fruits</span>
-    </a>
-    <a href="spices" class="category-button">
-        <img src="images/product/spices.jpg" alt="Spices" class="category-img">
-        <span class="category-label">Spices</span>
-    </a>
-    <a href="dal-pulses" class="category-button">
-        <img src="images/product/pulses.jpg" alt="Dal/Pulses" class="category-img">
-        <span class="category-label">Dal/Pulses</span>
-    </a>
-    <a href="grocery" class="category-button">
-        <img src="images/product/grains.jpg" alt="Wholesome Grains" class="category-img">
-        <span class="category-label">Wholesome Grains</span>
-    </a>
-</div>
-	
-</main>
-<footer class="bg-dark py-3 mt-5">
+
+		<div class="category-buttons-container ">
+			<a href="fruits" class="category-button"> <img
+				src="images/product/fruits.jpg" alt="Fruits" class="category-img">
+				<span class="category-label">Fruits</span>
+			</a> <a href="vegetables" class="category-button"> <img
+				src="images/product/veggies.jpg" alt="Vegetables"
+				class="category-img"> <span class="category-label">Vegetables</span>
+			</a> <a href="biscuits" class="category-button"> <img
+				src="images/product/snacks.jpg" alt="Snacks" class="category-img">
+				<span class="category-label">Snacks</span>
+			</a> <a href="dairyProducts" class="category-button"> <img
+				src="images/product/milk and dairy products.jpg"
+				alt="Dairy Products" class="category-img"> <span
+				class="category-label">Dairy Products</span>
+			</a> <a href="dryFruits" class="category-button"> <img
+				src="images/product/dry-fruits.jpg" alt="Dry Fruits"
+				class="category-img"> <span class="category-label">Dry
+					Fruits</span>
+			</a> <a href="spices" class="category-button"> <img
+				src="images/product/spices.jpg" alt="Spices" class="category-img">
+				<span class="category-label">Spices</span>
+			</a> <a href="Dals & Pulses" class="category-button"> <img
+				src="images/product/pulses.jpg" alt="Dal/Pulses"
+				class="category-img"> <span class="category-label">Dal/Pulses</span>
+			</a> <a href="grocery" class="category-button"> <img
+				src="images/product/grains.jpg" alt="Wholesome Grains"
+				class="category-img"> <span class="category-label">Wholesome
+					Grains</span>
+			</a>
+		</div>
+
+	</main>
+	<footer class="bg-dark py-3 mt-5">
 		<div id="contact" class="conatiner text-light text-center">
 			<h4>Contact Us</h4>
 			<p>Email: support@mysoremart.com</p>
@@ -138,7 +146,7 @@
 				height="75">
 			</a> <br> <small class="text-white-50">&copy; 2024
 				MysoreMart. All rights reserved. </small>
-			</div>
+		</div>
 	</footer>
 	<script>
     $(document).ready(function() {

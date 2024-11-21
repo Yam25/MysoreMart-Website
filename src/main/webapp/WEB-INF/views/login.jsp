@@ -12,14 +12,11 @@
     <link rel="stylesheet" href="<c:url value='/css/userprofile/login.css'/>">
 </head>
 <body>
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 col-sm-12">
                 <div class="sign-in-box p-4 shadow-lg rounded">
                     <h2 class="text-center mb-4">Sign In</h2>
-
-                  
 
                     <!-- Sign In Form -->
                     <form id="loginForm" method="POST" >

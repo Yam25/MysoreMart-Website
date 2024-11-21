@@ -60,7 +60,7 @@ public class MartController {
     	 Long userId = (Long) session.getAttribute("userId");
 
  	    if (userId == null) {
- 	        return "index";
+ 	        return "search";
  	    }
  	    List<CartDetails> cartItems = cartService.getAllCartItems(userId);
  	    int itemCount = 0;
@@ -78,7 +78,7 @@ public class MartController {
 
         if (userId == null) {
             
-            return "redirect:/login";  // Redirect to login if userId is not present
+            return "redirect:/login";  
         }
         List<CartDetails> cartItems = cartService.getAllCartItems(userId);
         model.addAttribute("cartItems", cartItems);

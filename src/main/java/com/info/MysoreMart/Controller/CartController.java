@@ -34,19 +34,18 @@ public class CartController {
             @RequestParam("img") String imgUrl,
             HttpSession session, Model model) {
 
-        // Retrieve the user ID from the session
+        
         Long userId = (Long) session.getAttribute("userId");
 
         if (userId == null) {
             return ResponseEntity.status(401).body("User not logged in."); 
         }
-
-        // Check if the product already exists in the cart for this user
+        
         CartDetails existingCartItem = cartService.findCartItemByUserIdAndProductName(userId, productName);
 
         if (existingCartItem != null) {
-            // If the item exists, increase the quantity by 1
-            existingCartItem.setQuanCount(existingCartItem.getQuanCount() + 1); // Increment quantity by 1
+            
+            existingCartItem.setQuanCount(existingCartItem.getQuanCount() + 1);
 
             try {
                 cartService.updateQuantity(existingCartItem.getId(), userId, existingCartItem.getQuanCount());
@@ -63,10 +62,10 @@ public class CartController {
             cartDetails.setSelectedQuantity(selectedQuantity); 
             cartDetails.setImgUrl(imgUrl); 
             cartDetails.setUser(userProfileService.findById(userId)); 
-            cartDetails.setQuanCount(1); // Set initial quantity to 1
+            cartDetails.setQuanCount(1); 
 
             try {
-                cartService.addCartItem(cartDetails); // Save the new cart item
+                cartService.addCartItem(cartDetails);
                
                 List<CartDetails> cartItems = cartService.getAllCartItems(userId);
                 model.addAttribute("cartItems", cartItems);
@@ -79,8 +78,7 @@ public class CartController {
     }
 
     
-    //remove functionality
-    @PostMapping("/remove") // Use POST method for removing items
+    @PostMapping("/remove") 
     public ResponseEntity<String> removeProduct(@RequestParam("cartId") long cartId, HttpSession session) {
        
         Long userId = (Long) session.getAttribute("userId");
@@ -97,7 +95,7 @@ public class CartController {
         }
     }
     
-    //increase quantityCount functionality
+    
     @PostMapping("/increaseQuantity")
     public ResponseEntity<String> increaseQuantity(@RequestParam("cartId") long cartId, 
                                                    @RequestParam("newQuantity") long newQuantity, 
@@ -123,7 +121,7 @@ public class CartController {
     public ResponseEntity<String> decreaseQuantity(@RequestParam("cartId") long cartId, 
                                                    @RequestParam("newQuantity") long newQuantity, 
                                                    HttpSession session) {
-        // Retrieve the user ID from the session
+        
         Long userId = (Long) session.getAttribute("userId");
 
         if (userId == null) {

@@ -29,7 +29,7 @@ public class ProductService {
     }
 	
 	public List<Product> getProductsByCategory(String categoryName) {
-	    return repo.findProductsByCategory(categoryName);  // This calls the repository method
+	    return repo.findProductsByCategory(categoryName);  
 	}
 
 }

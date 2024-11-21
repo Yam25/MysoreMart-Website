@@ -74,9 +74,10 @@ public class ProductController {
 	@GetMapping("/getProductsByCategory")
 	@ResponseBody
 	public List<Product> getProductsByCategory(@RequestParam("categoryName") String categoryName) {
-	    // Call the service layer to fetch products based on category
+	    
 	    return productService.getProductsByCategory(categoryName);
 	}
+	
 	@GetMapping("/{categoryName}")
 	public String getproductsByCategory(Model model, @PathVariable String categoryName, HttpSession session) {
 		

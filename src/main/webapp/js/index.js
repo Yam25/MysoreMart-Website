@@ -29,7 +29,7 @@ $(document).ready(function() {
             },
             error: function(xhr) {
                 alert('Login is required to add items to the cart. Redirecting to login page.');
-                window.location.href = "/MysoreMart/login"; // Redirect to login page if user is not logged in
+                window.location.href = "/MysoreMart/login"; 
             }
         });
     });

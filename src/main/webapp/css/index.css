@@ -1,6 +1,4 @@
 
-
-
 /* Divya's index.css*/
 
 body {
@@ -187,7 +185,7 @@ strong {
 }
 
 
-.category-btn:hover {
+.category-btn:hover, .category-link:hover{
 	transform: scale(1.05); 
 }
 
@@ -252,3 +250,20 @@ strong {
     text-align: center; 
 }
 
+.search-container {
+    position: relative;
+    display: inline-block; 
+}
+
+.search-container input {
+    padding-right: 30px; 
+}
+
+.search-container .search-icon {
+    position: absolute;
+    right: 20px; 
+    top: 50%;
+    color: grey;
+    transform: translateY(-50%);
+    pointer-events: none;
+}

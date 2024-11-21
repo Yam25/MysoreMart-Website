@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>MysoreMart - Shop the Best Deals on Groceries &
-	Provisions</title>
+	Provisions</title>  
 <link rel="icon" href="images/product/mart.png" type="image/png">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -22,6 +22,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <style>
 body {
 	font-family: 'Arial', sans-serif;
@@ -29,14 +30,15 @@ body {
 }
 
 body {
+	
 	background-size: cover;
 	background-position: center;
 	color: #333;
 }
 
-.biscuit-card {
+.vegetables-card {
 	width: 300px;
-	height: 460px;
+	height: 480px;
 	margin: auto;
 	overflow: hidden;
 	text-align: center;
@@ -46,13 +48,13 @@ body {
 	transition: transform 0.2s;
 }
 
-.biscuit-card img {
+.vegetables-card img {
 	width: 100%;
 	height: 200px;
 	object-fit: cover;
 }
 
-.biscuit-card:hover {
+.vegetables-card:hover {
 	transform: scale(1.05);
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -164,12 +166,13 @@ input[type="text"] {
 }
 </style>
 
+
 <script>
     let currentPage = 1;
     const itemsPerPage = 6;
 
     function showPage(page) {
-        const items = document.querySelectorAll('.biscuit-item');
+        const items = document.querySelectorAll('.vegetable-item');
         const start = (page - 1) * itemsPerPage;
         const end = start + itemsPerPage;
 
@@ -185,7 +188,7 @@ input[type="text"] {
     }
 
     function updatePagination(page) {
-        const totalItems = document.querySelectorAll('.biscuit-item').length;
+        const totalItems = document.querySelectorAll('.vegetable-item').length;
         const totalPages = Math.ceil(totalItems / itemsPerPage);
         let paginationHtml = '';
 
@@ -197,9 +200,9 @@ input[type="text"] {
         currentPage = page;
     }
 
-    function searchBiscuits() {
+    function searchVegetables() {
         const searchInput = document.getElementById('searchInput').value.toLowerCase();
-        const items = document.querySelectorAll('.biscuit-item');
+        const items = document.querySelectorAll('.vegetable-item');
         items.forEach(item => {
             const title = item.querySelector('.card-title').textContent.toLowerCase();
             if (title.includes(searchInput)) {
@@ -215,9 +218,9 @@ input[type="text"] {
     window.onload = function() {
         showPage(1);
     };
-    
-   
+
 </script>
+
 <script>
         // Define the base URL for AJAX requests
         var baseUrl = "<c:url value='/add'/>";
@@ -225,12 +228,14 @@ input[type="text"] {
     </script>
 </head>
 <body>
+
 <%
     String userFullName = (String) session.getAttribute("userFullName");
     if (userFullName == null) {
         userFullName = "User"; 
     }
 %>
+
 	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
 		<div class="container">
 			<a class="navbar-brand ms-0" href="/MysoreMart/"> <img
@@ -251,7 +256,7 @@ input[type="text"] {
 							Category </a>
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="fruits">Fruits</a></li>
-							<li><a class="dropdown-item" href="vegetables">Vegetables</a></li>
+							<li><a class="dropdown-item" href="biscuits">Sip-Snack</a></li>
 							<li><a class="dropdown-item" href="dairyProducts">Dairy
 									Products</a></li>
 							<li><a class="dropdown-item" href="dryFruits">Dry Fruits</a></li>
@@ -261,6 +266,7 @@ input[type="text"] {
 									Grains</a></li>
 						</ul></li>
 				</ul>
+
 				<ul
 					class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
 					<a class="nav-link" href="login" id="loginSignupLink">
@@ -302,19 +308,21 @@ input[type="text"] {
 	</nav>
 
 	<div id="success-alert" class="alert alert-success" role="alert"
-		style="display: none;">Item has been added to cart successfully.</div>
+		style="display: none;">Item has been added to cart successfully.
+	</div>
 
 	<div class="text-center mb-4">
 		<div class="search-container">
 			<input type="text" id="searchInput" class="form-control"
-				placeholder="Search biscuits by name..." onkeyup="searchBiscuits()">
-			<i class="fas fa-search search-icon"></i>
+				placeholder="Search vegetables by name..."
+				onkeyup="searchVegetables()"> <i
+				class="fas fa-search search-icon"></i>
 		</div>
 	</div>
 	
 	<form action="add" method="post" id="cart-form">
 		<div id="menu" class="container mt-5">
-			<h2 class="text-center mb-4">Indian Biscuits</h2>
+			<h2 class="text-center mb-4">Fresh Indian Vegetables</h2>
 			<div class="row">
 
 				<%
@@ -322,8 +330,8 @@ input[type="text"] {
 				for (Product prod : productItems) {
 				%>
 
-				<div class="col-md-4 mb-4 biscuit-item">
-					<div class="card biscuit-card">
+				<div class="col-md-4 mb-4 vegetable-item">
+					<div class="card vegetables-card">
 						<img src="<%=prod.getProductImage()%>" class="card-img-top"
 							alt="<%=prod.getProductName()%>">
 						<div class="card-body">
@@ -356,18 +364,15 @@ input[type="text"] {
 			</div>
 		</div>
 	</form>
-
 	
-
-	<div id="pagination" class="pagination-container"></div>
-
+	<div class="pagination-container" id="pagination"></div>
+	
 	<footer class="text-center mt-5">
-		<p>Enjoy Indian Biscuits</p>
+		<p>Enjoy Fresh and Healthy Vegetables!</p>
 		<p>
 			<a href="/MysoreMart/" class="text-success">Go back to Home</a>
 		</p>
 	</footer>
-
 	<footer class="bg-dark py-3 mt-3">
 		<div id="contact" class="conatiner text-light text-center">
 			<h4>Contact Us</h4>
@@ -392,6 +397,5 @@ input[type="text"] {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
-
 </body>
 </html>
