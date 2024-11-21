@@ -18,10 +18,21 @@ public class MartController {
 	@Autowired
     private CartService cartService;
 	
-    @GetMapping("/")
-    public String home() {
-        return "index"; 
-    }
+	@GetMapping("/")
+	public String home(HttpSession session, Model model) {
+	    Long userId = (Long) session.getAttribute("userId");
+
+	    if (userId == null) {
+	        return "index";
+	    }
+	    List<CartDetails> cartItems = cartService.getAllCartItems(userId);
+	    int itemCount = 0;
+	    for (CartDetails item : cartItems) {
+	        itemCount += item.getQuanCount();
+	    }
+	    model.addAttribute("cartItemCount", itemCount);
+	    return "index"; 
+	}
 
 
     @GetMapping("/login")
@@ -35,7 +46,18 @@ public class MartController {
     }
     
     @GetMapping("/search")
-    public String search() {
+    public String search(HttpSession session, Model model) {
+    	 Long userId = (Long) session.getAttribute("userId");
+
+ 	    if (userId == null) {
+ 	        return "index";
+ 	    }
+ 	    List<CartDetails> cartItems = cartService.getAllCartItems(userId);
+ 	    int itemCount = 0;
+ 	    for (CartDetails item : cartItems) {
+ 	        itemCount += item.getQuanCount();
+ 	    }
+ 	    model.addAttribute("cartItemCount", itemCount);
         return "search"; 
     }
     
@@ -94,15 +116,7 @@ public class MartController {
             
             return "redirect:/login";  // Redirect to login if userId is not present
         }
-
-       
         List<CartDetails> cartItems = cartService.getAllCartItems(userId);
-       
-        
-     
-        int itemCount = cartService.getItemCountForUser(userId);
-        session.setAttribute("cartItemCount", itemCount); 
-
         model.addAttribute("cartItems", cartItems);
         return "cart";  
     }

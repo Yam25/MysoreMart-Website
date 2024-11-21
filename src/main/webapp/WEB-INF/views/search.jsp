@@ -1,3 +1,4 @@
+<%@page import="com.info.MysoreMart.Model.CartDetails"%>
 <%@page import="java.util.List"%>
 <%@page import="com.info.MysoreMart.Model.Product"%>
 <%@page contentType="text/html;charset=UTF-8" language="java"%>
@@ -54,25 +55,22 @@
 				        </ul>
 				    </li>
 				    
+					<%
+					Integer cartItemCount = (Integer) request.getAttribute("cartItemCount");
+					%>
+
 					<li class="nav-item"><a class="nav-link"
-					href="/MysoreMart/cart" style="position: relative;"> <i
-						class="bi bi-cart4 text-danger fs-2"></i> <span id="cart-count"
-						class="badge bg-danger"
-						<%Integer cartItemCount = (Integer) session.getAttribute("cartItemCount");
-							if (cartItemCount == null) {
-								cartItemCount = 0; 
-							}%>
-													<%if (cartItemCount > 0) {%>
-													style="display: inline;"> <%=cartItemCount%> 
-							<%
-							} else {
-							%> style="display: none;">0
-							<%
-							}
-							%>
-					</span>
-				</a></li>
- 
+						href="/MysoreMart/cart" style="position: relative;"> <i
+							class="bi bi-cart4 text-danger fs-2"></i> <%
+ if (cartItemCount != null && cartItemCount > 0) {
+ %> <span class="badge item" id="cart-item-count-nav"> <%=cartItemCount%>
+						</span> <%
+ } else {
+ %> <span class="badge item" id="cart-item-count-nav"
+							style="display: none;"></span> <%
+ }
+ %>
+					</a></li>
 				</ul>
 			</div>
 		</div>

@@ -120,7 +120,8 @@ function updateCart() {
 	$("#cart-total").text(total.toFixed(2));
 
 
-	$("#cart-item-count").text(itemCount + " items in your cart");
+	$("#cart-item-count-nav").text(itemCount);
+	$("#cart-item-count").text(itemCount+ " items in your cart");
 
 
 	if ($(".product").length === 0) {

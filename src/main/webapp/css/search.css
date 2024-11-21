@@ -119,3 +119,17 @@
         width: 100px;
     }
 }
+#cart-item-count-nav {
+    position: absolute;
+    top: -5px;  
+    right: -5px; 
+    background-color: red; 
+    color: white; 
+    padding: 5px 10px; 
+    border-radius: 50%; 
+    font-size: 14px; 
+    font-weight: bold; 
+    display: inline-block;
+    min-width: 20px; 
+    text-align: center; 
+}

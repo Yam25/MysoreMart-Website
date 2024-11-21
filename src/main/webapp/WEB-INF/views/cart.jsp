@@ -39,6 +39,10 @@
 </style>
 </head>
 <body>
+	<%
+	List<CartDetails> cartItems = (List<CartDetails>) request.getAttribute("cartItems");
+	int itemCount = (cartItems != null) ? cartItems.size() : 0;
+	%>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 		<div class="container">
 			<a class="navbar-brand" href="/MysoreMart/"> <img
@@ -66,35 +70,21 @@
 				</li>
 				<li class="nav-item"><a class="nav-link"
 					href="/MysoreMart/cart" style="position: relative;"> <i
-						class="bi bi-cart4 text-danger fs-2"></i> <span id="cart-count"
-						class="badge bg-danger"
-						<%Integer cartItemCount = (Integer) session.getAttribute("cartItemCount");
-if (cartItemCount == null) {
-	cartItemCount = 0;
-}%>
-						<%if (cartItemCount > 0) {%> style="display: inline;"> <%=cartItemCount%>
-							<%
-							} else {
-							%> style="display: none;">0 <%
-							}
-							%>
-					</span>
+						class="bi bi-cart4 text-danger fs-2"></i> <span class="badge item"
+						id="cart-item-count-nav"><%=itemCount%></span>
 				</a></li>
 			</ul>
 		</div>
 	</nav>
 
 	<main class="container py-5">
+
 		<div id="remove-alert" class="alert alert-danger" role="alert"
 			style="display: none;">Item has been removed from cart</div>
 		<section class="text-center" id="cart">
 			<h1 class="title">Shopping Cart</h1>
-			<%
-			List<CartDetails> cartItems = (List<CartDetails>) request.getAttribute("cartItems");
-			int itemCount = (cartItems != null) ? cartItems.size() : 0;
-			%>
+
 			<p class="item" id="cart-item-count"><%=itemCount%>
-				items in your cart
 			</p>
 		</section>
 		<section id="card-sec">
