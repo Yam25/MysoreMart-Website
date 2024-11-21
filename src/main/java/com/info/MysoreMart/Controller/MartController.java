@@ -45,6 +45,10 @@ public class MartController {
         return "register"; 
     }
     
+    @GetMapping("/forget")
+    public String forgot() {
+        return "forget";  
+    }
     @GetMapping("/search")
     public String search(HttpSession session, Model model) {
     	 Long userId = (Long) session.getAttribute("userId");
@@ -59,52 +63,6 @@ public class MartController {
  	    }
  	    model.addAttribute("cartItemCount", itemCount);
         return "search"; 
-    }
-    
-    @GetMapping("/forget")
-    public String forgot() {
-        return "forget";  
-    }
-  
-	@GetMapping("/dairyProducts")
-    public String dairyProducts() {
-        return "dairyProducts"; 
-    }
-	
-	@GetMapping("/dryFruits")
-    public String dryfruits() {
-        return "dryFruits"; 
-    }
-	
-	@GetMapping("/vegetable")
-    public String veggies() {
-        return "vegetable"; 
-    }
-	
-	@GetMapping("/spices")
-    public String spices() {
-        return "spices"; 
-    }
-	
-	
-	@GetMapping("/biscuits")
-    public String biscuits() {
-        return "biscuits"; 
-    }
-	
-	@GetMapping("/dal-pulses")
-    public String dal_pulses() {
-        return "dal-pulses"; 
-    }
-	
-    @GetMapping("/fruits")
-    public String fruits() {
-        return "fruits";  
-    }
-    
-    @GetMapping("/grocery")
-    public String grocery() {
-        return "grocery";  
     }
    
     @GetMapping("/cart")
