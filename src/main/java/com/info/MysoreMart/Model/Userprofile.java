@@ -9,15 +9,15 @@ public class Userprofile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // Auto-generated ID by the database
+    private Long id;  
 
     private String fullName;
     private String email;
     private String phone;
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // One user can have many cart items
-    private List<CartDetails> cartDetails; // List of CartDetails for this user
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
+    private List<CartDetails> cartDetails; 
 
     public List<CartDetails> getCartDetails() {
         return cartDetails;
@@ -26,8 +26,6 @@ public class Userprofile {
     public void setCartDetails(List<CartDetails> cartDetails) {
         this.cartDetails = cartDetails;
     }
-
-    // Getters and setters...
     
     public Long getId() {
         return id;
@@ -69,16 +67,12 @@ public class Userprofile {
         this.password = password;
     }
     
-    
-    
-    
-    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Userprofile that = (Userprofile) o;
-        return id != null && id.equals(that.id); // Ensure id is not null
+        return id != null && id.equals(that.id);
     }
 
     @Override

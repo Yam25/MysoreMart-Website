@@ -20,7 +20,7 @@ public class CartRepo {
         this.sessionFactory = cfg.buildSessionFactory();
     }
 
-    // Method to add a cart item
+    /*Method to add a cart item*/
     public void addCartItem(CartDetails cartDetails) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
@@ -35,7 +35,7 @@ public class CartRepo {
         }
     }
 
-    // Method to fetch all cart items for a specific user
+    /* Method to fetch all cart items for a specific user*/
     public List<CartDetails> getCartItemsByUserId(Long userId) {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM CartDetails WHERE user.id = :userId", CartDetails.class)
@@ -44,7 +44,7 @@ public class CartRepo {
         }
     }
 
-    // Method to delete a cart item by ID
+    /*Method to delete a cart item by ID*/
     public boolean deleteCartItem(long id) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
@@ -65,40 +65,13 @@ public class CartRepo {
             return false; 
         }
     }
-    
-    
-    //count of items in db per user
-	public int countByUserId(Long userId) {
-		
-		Transaction transaction = null;
-        int count = 0;
-        
-        try (Session session = sessionFactory.openSession()) {
-            transaction = session.beginTransaction();
-            
-            // Using HQL to count the items
-            Query<Long> query = session.createQuery("SELECT COUNT(c) FROM CartDetails c WHERE c.user.id = :userId", Long.class);
-            query.setParameter("userId", userId);
-            count = query.uniqueResult().intValue(); // Get the result and convert it to int
-            
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace(); 
-        }
-        
-        return count; 
-	}
-	
-   //method to update quantity
+
+   /*method to update quantity*/
 	public void updateQuantityByCartIdAndUserId(long cartId, Long userId, long newQuantity) {
 	    Transaction transaction = null;
 	    try (Session session = sessionFactory.openSession()) {
 	        transaction = session.beginTransaction();
 	        
-	        // Update the quantity of the cart item for the specified cartId and userId
 	        int updatedRows = session.createQuery("UPDATE CartDetails c SET c.quanCount = :newQuantity " +
 	                                              "WHERE c.cid = :cartId AND c.user.id = :userId") 
 	                                 .setParameter("newQuantity", newQuantity)
@@ -121,13 +94,13 @@ public class CartRepo {
 	    }
 	}
 
-	// Method to find a cart item by user ID and product name
+	/*Method to find a cart item by user ID and product name*/
     public CartDetails findByUserIdAndProductName(Long userId, String productName) {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery("FROM CartDetails WHERE user.id = :userId AND productName = :productName", CartDetails.class)
                           .setParameter("userId", userId)
                           .setParameter("productName", productName)
-                          .uniqueResult(); // Retrieves a single result or null if none found
+                          .uniqueResult(); 
         } catch (Exception e) {
             e.printStackTrace(); 
             return null;

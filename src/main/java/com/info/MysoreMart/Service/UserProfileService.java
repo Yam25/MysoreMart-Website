@@ -47,7 +47,7 @@ public class UserProfileService {
     }
     
     public boolean updatePassword(Userprofile user) {
-        upr.updatePassword(user);  // Assuming an updatePassword method in repository
+        upr.updatePassword(user); 
 		return false;
     }
 

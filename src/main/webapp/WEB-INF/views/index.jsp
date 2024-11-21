@@ -27,6 +27,8 @@
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
@@ -35,7 +37,13 @@
 </script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<%
+    String userFullName = (String) session.getAttribute("userFullName");
+    if (userFullName == null) {
+        userFullName = "User"; 
+    }
+%>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
 		<div class="container">
 			<a class="navbar-brand ms-0" href="/MysoreMart/"> <img
 				src="images/product/mart.png" alt="Mysore Mart" width="200"
@@ -55,38 +63,38 @@
 							Category </a>
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="fruits">Fruits</a></li>
-							<li><a class="dropdown-item" href="vegetable">Vegetables</a></li>
+							<li><a class="dropdown-item" href="vegetables">Vegetables</a></li>
 							<li><a class="dropdown-item" href="biscuits">Snacks</a></li>
 							<li><a class="dropdown-item" href="dairyProducts">Dairy
 									Products</a></li>
 							<li><a class="dropdown-item" href="dryFruits">Dry Fruits</a></li>
 							<li><a class="dropdown-item" href="spices">Spices</a></li>
-							<li><a class="dropdown-item" href="dal-pulses">Dal/Pulses</a></li>
+							<li><a class="dropdown-item" href="Dals & Pulses">Dal/Pulses</a></li>
 							<li><a class="dropdown-item" href="grocery">Wholesome
 									Grains</a></li>
 
 
 						</ul></li>
 				</ul>
-				<form class="d-flex mx-auto" role="search">
+				<form class="d-flex mx-auto search-container" role="search">
 					<input class="form-control fs-5 me-2" type="text"
-						placeholder="Search" style="min-width: 300px;"
-						onfocus="redirectToSearchPage()" />
+						placeholder="Search" style="min-width: 350px;"
+						onfocus="redirectToSearchPage()" /><i
+						class="fas fa-search search-icon"></i>
 				</form>
 
 				<ul
 					class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-					<!-- Login/Signup Button -->
+					
 					<a class="nav-link" href="login" id="loginSignupLink">
 						<button id="loginBtn" type="button"
 							class="btn btn-outline-dark login-signup-btn">Login/SignUp</button>
 					</a>
-
-					<!-- Hello Button with Dropdown (Initially hidden) -->
+					
 					<li class="nav-item dropdown" id="helloUser" style="display: none;">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Hello, User </a>
+							<strong style="font-size:17px;">Hello,  <%= userFullName %></strong></a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<li><a class="dropdown-item"
 								href="<c:url value='/userDashboard'/>">Dashboard</a></li>
@@ -115,7 +123,7 @@
 			</div>
 		</div>
 	</nav>
-
+	
 	<main class="bg-light">
 		<div id="success-alert" class="alert alert-success" role="alert"
 			style="display: none;">Item has been added to cart
@@ -137,20 +145,20 @@
 			</div>
 			<div class="carousel-inner col-6 col-md-4 col-lg-4 mb-4">
 				<div class="carousel-item active">
-					<img src="images/product/fruits.jpg"
+					<img src="images/product/fruitscart.jpg"
 						class="d-block w-100 c-img  img-fluid" alt="Fruits">
 				</div>
 				<div class="carousel-item">
-					<img src="images/product/veggies.jpg"
+					<img src="images/product/vegetables.jpg"
 						class="d-block w-100 c-img img-fluid" alt="Vegetables">
 				</div>
 				<div class="carousel-item">
-					<img src="images/product/milk and dairy products.jpg"
+					<img src="images/product/dry.jpg"
 						class="d-block w-100 c-img img-fluid"
 						alt="Milk and Dairy Prodducts">
 				</div>
 				<div class="carousel-item">
-					<img src="images/product/pulses.jpg"
+					<img src="images/product/dal.jpg"
 						class="d-block w-100 c-img  img-fluid" alt="Pulses">
 				</div>
 				<div class="carousel-item">
@@ -194,7 +202,7 @@
 							<div class="category-text">Dairy</div>
 						</div>
 					</button>
-				</a> <a href="dal-pulses" class="category-link shadow">
+				</a> <a href="Dals & Pulses" class="category-link shadow">
 					<button class="category-btn" aria-label="Pulses">
 						<div class="category-content">
 							<div class="veggies">
@@ -203,7 +211,7 @@
 							<div class="category-text">Dal/Pulses</div>
 						</div>
 					</button>
-				</a> <a href="vegetable" class="category-link shadow">
+				</a> <a href="vegetables" class="category-link shadow">
 					<button class="category-btn" aria-label="Fresh Vegetables">
 						<div class="category-content">
 							<div class="veggies">
@@ -260,18 +268,20 @@
 
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-fruits shadow">
-								<img src="images/product/apples.jpg" class="card-img-top"
+								<img src="images/fruits/apple.jpg" class="card-img-top"
 									alt="Apples">
 								<div class="card-body">
-									<h5 class="card-title text-center">Apples</h5>
+									<h5 class="card-title text-center">Apple</h5>
 									<p class="card-text">Crisp, juicy, and packed with vitamins
 										for a refreshing snack.</p>
 									<p class="card-text">
 										<strong>₹100</strong>
 									</p>
 									<p class=" mb-3 card-text weight">500gm</p>
-									<button type="button"
-										class="btn btn-outline-danger add-to-cart">Add to
+									<button class="btn btn-outline-danger add-to-cart"
+										data-product-name="Apple" data-product-price="100"
+										data-product-quantity="500gm"
+										data-product-img="images/fruits/apple.jpg">Add to
 										Cart</button>
 								</div>
 							</div>
@@ -280,18 +290,20 @@
 
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-fruits shadow">
-								<img src="images/product/blueberries.jpg" class="card-img-top"
+								<img src="images/fruits/pineapple.jpg" class="card-img-top"
 									alt="Blueberries">
 								<div class="card-body">
-									<h5 class="card-title">Blueberries</h5>
-									<p class="card-text">Antioxidant-rich, sweet, and tangy —
-										perfect for your health!</p>
+									<h5 class="card-title">Pineapple</h5>
+									<p class="card-text">Pineapples are tropical fruits with a
+										spiky, and sweet, tangy.</p>
 									<p class="card-text">
 										<strong>₹125</strong>
 									</p>
 									<p class=" mb-3 card-text weight">500gm</p>
-									<button type="button"
-										class="btn btn-outline-danger add-to-cart">Add to
+									<button class="btn btn-outline-danger add-to-cart"
+										data-product-name="Pineapple" data-product-price="125"
+										data-product-quantity="500gm"
+										data-product-img="images/fruits/pineapple.jpg">Add to
 										Cart</button>
 								</div>
 							</div>
@@ -300,7 +312,7 @@
 
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-fruits shadow">
-								<img src="images/product/banana.jpg" class="card-img-top"
+								<img src="images/fruits/banana.jpg" class="card-img-top"
 									alt="Banana">
 								<div class="card-body">
 									<h5 class="card-title">Banana</h5>
@@ -310,8 +322,11 @@
 										<strong>₹45</strong>
 									</p>
 									<p class=" mb-3 card-text weight">500gm</p>
-									<a href="#" class="btn btn-outline-danger add-to-cart">Add
-										to cart</a>
+									<button class="btn btn-outline-danger add-to-cart"
+										data-product-name="Banana" data-product-price="45"
+										data-product-quantity="500gm"
+										data-product-img="images/fruits/banana.jpg">Add to
+										Cart</button>
 								</div>
 							</div>
 						</div>
@@ -319,7 +334,7 @@
 
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-veg shadow">
-								<img src="images/product/cucumber.jpg" class="card-img-top"
+								<img src="images/product/cucumber1.jpg" class="card-img-top"
 									alt="Cucumber">
 								<div class="card-body">
 									<h5 class="card-title">Cucumber</h5>
@@ -329,8 +344,11 @@
 										<strong>₹35</strong>
 									</p>
 									<p class=" mb-3 card-text weight">500gm</p>
-									<a href="#" class="btn btn-outline-danger add-to-cart">Add
-										to cart</a>
+									<button class="btn btn-outline-danger add-to-cart"
+										data-product-name="Cucumber" data-product-price="35"
+										data-product-quantity="500gm"
+										data-product-img="images/product/cucumber1.jpg">Add
+										to Cart</button>
 								</div>
 							</div>
 						</div>
@@ -338,7 +356,7 @@
 
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-veg shadow">
-								<img src="images/product/tomatoes.jpg" class="card-img-top"
+								<img src="images/product/tomatoes1.jpg" class="card-img-top"
 									alt="Tomatoes">
 								<div class="card-body">
 									<h5 class="card-title">Tomatoes</h5>
@@ -348,8 +366,11 @@
 										<strong>₹40</strong>
 									</p>
 									<p class=" mb-3 card-text weight">500gm</p>
-									<a href="#" class="btn btn-outline-danger add-to-cart">Add
-										to cart</a>
+									<button class="btn btn-outline-danger add-to-cart"
+										data-product-name="Tomatoes" data-product-price="40"
+										data-product-quantity="500gm"
+										data-product-img="images/product/tomatoes1.jpg">Add
+										to Cart</button>
 								</div>
 							</div>
 						</div>
@@ -357,7 +378,7 @@
 
 						<div class="col-lg-2 col-md-3 col-sm-4 mb-4">
 							<div class="card card-veg shadow">
-								<img src="images/product/onions.jpg" class="card-img-top"
+								<img src="images/product/onions1.jpg" class="card-img-top"
 									alt="Onions">
 								<div class="card-body">
 									<h5 class="card-title">Onions</h5>
@@ -367,8 +388,11 @@
 										<strong>₹50</strong>
 									</p>
 									<p class=" mb-3 card-text weight">500gm</p>
-									<a href="#" class="btn btn-outline-danger add-to-cart">Add
-										to cart</a>
+									<button class="btn btn-outline-danger add-to-cart"
+										data-product-name="Onions" data-product-price="50"
+										data-product-quantity="500gm"
+										data-product-img="images/product/onions1.jpg">Add to
+										Cart</button>
 								</div>
 							</div>
 						</div>
@@ -382,7 +406,7 @@
 		</section>
 	</main>
 
-	<footer class="bg-dark py-3 mt-5">
+	<footer class="bg-dark py-3 mt-5 conatiner">
 		<div id="contact" class="conatiner text-light text-center">
 			<h4>Contact Us</h4>
 			<p>Email: support@mysoremart.com</p>

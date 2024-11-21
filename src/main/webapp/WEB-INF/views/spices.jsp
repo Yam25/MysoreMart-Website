@@ -1,11 +1,14 @@
+<%@page import="com.info.MysoreMart.Model.Product"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>MysoreMart - Shop the Best Deals on Groceries &
-	Provisions</title> 
+	Provisions</title>
 <link rel="icon" href="images/product/mart.png" type="image/png">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -17,8 +20,8 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
 body {
 	font-family: 'Arial', sans-serif;
@@ -50,29 +53,6 @@ body {
 }
 
 .spice-card-whole:hover {
-	transform: scale(1.05);
-	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.spice-card-powder {
-	width: 300px;
-	height: 480px;
-	margin: auto;
-	overflow: hidden;
-	text-align: center;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	transition: transform 0.2s;
-}
-
-.spice-card-powder img {
-	width: 100%;
-	height: 200px;
-	object-fit: cover;
-}
-
-.spice-card-powder:hover {
 	transform: scale(1.05);
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -114,7 +94,9 @@ input[type="text"] {
 
 .search-container {
 	position: relative;
-	width: 100%;
+	width: 80%;
+	max-width: 800px;
+	margin: 0 auto;
 }
 
 #searchInput {
@@ -177,21 +159,23 @@ input[type="text"] {
 	border-radius: 5px;
 }
 
-.cart-icon {
-	position: relative;
-}
-
-#cart-count {
+#cart-item-count-nav {
 	position: absolute;
-	top: -10px;
-	right: -10px;
-	display: none;
-	z-index: 10;
+	top: -5px;
+	right: -5px;
+	background-color: red;
+	color: white;
+	padding: 5px 10px;
+	border-radius: 50%;
+	font-size: 14px;
+	font-weight: bold;
+	display: inline-block;
+	min-width: 20px;
+	text-align: center;
 }
 </style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
+
+
 <script>
     let currentPage = 1;
     const itemsPerPage = 6;
@@ -258,49 +242,25 @@ input[type="text"] {
         });
     }
     
-    document.addEventListener('DOMContentLoaded', function () {
-		
-    	  const productContainer = document.querySelector('#menu'); 
-
-    	  if (productContainer) {
-    	    productContainer.addEventListener('change', function (event) {
-    	      
-    	      if (event.target && event.target.tagName.toLowerCase() === 'select') {
-    	        const selectedOption = event.target.options[event.target.selectedIndex];
-    	        const price = selectedOption.getAttribute('data-price');
-    	        const priceElement = event.target.closest('.card-body').querySelector('strong');
-    	        
-    	        if (priceElement) {
-    	          priceElement.textContent = `₹${price}`;
-    	        }
-    	      }
-    	    });
-
-    	    
-    	    const selectElements = productContainer.querySelectorAll('select');
-    	    selectElements.forEach(function (select) {
-    	      const selectedOption = select.options[select.selectedIndex];
-    	      const priceElement = select.closest('.card-body').querySelector('strong');
-    	      const price = selectedOption.getAttribute('data-price');
-    	      if (priceElement) {
-    	        priceElement.textContent = `₹${price}`;
-    	      }
-    	    });
-    	  }
-    	});
-
 </script>
 
 <script>
         // Define the base URL for AJAX requests
         var baseUrl = "<c:url value='/add'/>";
+        var baseUrl4 = "<c:url value='/logout'/>";
     </script>
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<%
+    String userFullName = (String) session.getAttribute("userFullName");
+    if (userFullName == null) {
+        userFullName = "User"; 
+    }
+%>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
 		<div class="container">
-			<a class="navbar-brand ms-0" href="index"> <img
+			<a class="navbar-brand ms-0" href="/MysoreMart/"> <img
 				src="images/product/mart.png" alt="Mysore Mart" width="200"
 				height="75">
 			</a>
@@ -318,12 +278,12 @@ input[type="text"] {
 							Category </a>
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="fruits">Fruits</a></li>
-							<li><a class="dropdown-item" href="vegetable">Vegetables</a></li>
+							<li><a class="dropdown-item" href="vegetables">Vegetables</a></li>
 							<li><a class="dropdown-item" href="biscuits">Sip-Snack</a></li>
 							<li><a class="dropdown-item" href="dairyProducts">Dairy
 									Products</a></li>
 							<li><a class="dropdown-item" href="dryFruits">Dry Fruits</a></li>
-							<li><a class="dropdown-item" href="dal-pulses">Dal/Pulses</a></li>
+							<li><a class="dropdown-item" href="Dals & Pulses">Dal/Pulses</a></li>
 							<li><a class="dropdown-item" href="grocery">Wholesome
 									Grains</a></li>
 						</ul></li>
@@ -331,14 +291,38 @@ input[type="text"] {
 
 				<ul
 					class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-					<!-- Added d-flex and align-items-center -->
-					<li class="nav-item"><a class="nav-link" href="login.jsp">
-							<button type="button" class="btn btn-outline-dark">Login/SignUp</button>
-					</a></li>
+					<a class="nav-link" href="login" id="loginSignupLink">
+						<button id="loginBtn" type="button"
+							class="btn btn-outline-dark login-signup-btn">Login/SignUp</button>
+					</a>
+
+					<li class="nav-item dropdown" id="helloUser" style="display: none;">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<strong style="font-size:17px;">Hello,  <%= userFullName %></strong></a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item"
+								href="<c:url value='/userDashboard'/>">Dashboard</a></li>
+							<li><a class="dropdown-item" href="#contact">Contact Us</a></li>
+							<li><a class="dropdown-item" href="logout" id="logoutBtn">Logout</a></li>
+						</ul>
+					</li>
+
+					<%
+					Integer cartItemCount = (Integer) request.getAttribute("cartItemCount");
+					%>
+
 					<li class="nav-item"><a class="nav-link"
 						href="/MysoreMart/cart" style="position: relative;"> <i
-							class="bi bi-cart4 text-danger fs-2"></i> <span id="cart-count"
-							class="badge bg-danger" style="display: none;">0</span>
+							class="bi bi-cart4 text-danger fs-2"></i> <%
+ if (cartItemCount != null && cartItemCount > 0) {
+ %> <span class="badge item" id="cart-item-count-nav"> <%=cartItemCount%>
+						</span> <%
+ } else {
+ %> <span class="badge item" id="cart-item-count-nav"
+							style="display: none;"></span> <%
+ }
+ %>
 					</a></li>
 				</ul>
 			</div>
@@ -350,7 +334,7 @@ input[type="text"] {
 	</div>
 
 	<div class="text-center mb-4">
-		<div class="search-container w-50 d-inline">
+		<div class="search-container">
 			<input type="text" id="searchInput" class="form-control"
 				placeholder="Search spices by name..." onkeyup="searchSpices()">
 			<i class="fas fa-search search-icon"></i>
@@ -358,927 +342,57 @@ input[type="text"] {
 	</div>
 
 	<form action="add" method="post" id="cart-form">
-		<div class="container mt-5">
+		<div id="menu" class="container mt-5">
 			<h2 class="text-center mb-4">Fresh Indian Spices</h2>
-			<div class="text-center mb-4">
-				<button class="btn btn-primary" onclick="filterSpices('all')">Show
-					All</button>
-				<button class="btn btn-success" onclick="filterSpices('Powder')">Show
-					Powder</button>
-				<button class="btn btn-danger" onclick="filterSpices('Spice')">Show
-					Whole Spice</button>
-			</div>
-
-
 			<div class="row">
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/Turmeric.jpg"
-							class="card-img-top" alt="Turmeric">
-						<div class="card-body">
-							<h5 class="card-title">Turmeric</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Bright yellow, adds earthy flavor to
-								dishes.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
+
+				<%
+				List<Product> productItems = (List<Product>) request.getAttribute("productItems");
+				for (Product prod : productItems) {
+				%>
 
 				<div class="col-md-4 mb-4 spice-item">
 					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/Cumin.jpg"
-							class="card-img-top" alt="Cumin">
+						<img src="<%=prod.getProductImage()%>" class="card-img-top"
+							alt="<%=prod.getProductName()%>">
 						<div class="card-body">
-							<h5 class="card-title">Cumin</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Nutty and earthy, essential in Indian
-								cooking.</p>
+							<h5 class="card-title">
+								<%=prod.getProductName()%>
+							</h5>
 							<p class="card-text">
-								<strong>&#8377;249</strong>
+								<%=prod.getProductDescription()%>
 							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
 
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/coriander.jpg"
-							class="card-img-top" alt="Coriander">
-						<div class="card-body">
-							<h5 class="card-title">Coriander</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Citrusy flavor, commonly used in curry
-								powders.</p>
 							<p class="card-text">
-								<strong>&#8377;249</strong>
+								<strong>&#8377;<%=prod.getProductPrice()%></strong>
 							</p>
 							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
+								<p class="card-text weight"><%=prod.getProductQuantity()%></p>
 							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
+							<button class="btn btn-outline-danger add-to-cart"
+								data-product-id="<%=prod.getProductId()%>"
+								data-product-name="<%=prod.getProductName()%>"
+								data-product-price="<%=prod.getProductPrice()%>"
+								data-product-quantity="<%=prod.getProductQuantity()%>"
+								data-product-img="<%=prod.getProductImage()%>">Add to
+								Cart</button>
 						</div>
 					</div>
 				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/cardamon.jpg"
-							class="card-img-top" alt="Cardamom">
-						<div class="card-body">
-							<h5 class="card-title">Cardamom</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Sweet, warm spice used in desserts and
-								curries.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/cloves.jpg"
-							class="card-img-top" alt="Cloves">
-						<div class="card-body">
-							<h5 class="card-title">Cloves</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Intense, warm, and slightly sweet
-								flavor.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/cinnamon.jpg"
-							class="card-img-top" alt="Cinnamon">
-						<div class="card-body">
-							<h5 class="card-title">Cinnamon</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Warm, sweet spice often used in
-								desserts.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/mustardseeds.jpg"
-							class="card-img-top" alt="Mustard Seeds">
-						<div class="card-body">
-							<h5 class="card-title">Mustard Seeds</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Sharp, tangy flavor used in Indian
-								pickles.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/fenugreek.jpg"
-							class="card-img-top" alt="Fenugreek">
-						<div class="card-body">
-							<h5 class="card-title">Fenugreek</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Bitter, slightly sweet spice for
-								curries.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/black-pepper.jpg"
-							class="card-img-top" alt="Black Pepper">
-						<div class="card-body">
-							<h5 class="card-title">Black Pepper</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Pungent spice, adds heat and depth to
-								dishes.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/star-anise.jpg"
-							class="card-img-top" alt="Star Anise">
-						<div class="card-body">
-							<h5 class="card-title">Star Anise</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">has a strong, sweet licorice-like flavor
-								used in biryanis.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/bay-leaf.jpg"
-							class="card-img-top" alt="Bay Leaf">
-						<div class="card-body">
-							<h5 class="card-title">Bay Leaf</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Aromatic leaves, adds depth to stews.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/fennelseeds.jpg"
-							class="card-img-top" alt="Fennel Seeds">
-						<div class="card-body">
-							<h5 class="card-title">Fennel Seeds</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Sweet and aromatic, used in pickles and
-								desserts.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/nutmeg.jpg"
-							class="card-img-top" alt="Nutmeg">
-						<div class="card-body">
-							<h5 class="card-title">Nutmeg</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Warm and sweet, used in desserts and
-								curries.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/mace.jpg"
-							class="card-img-top" alt="Mace">
-						<div class="card-body">
-							<h5 class="card-title">Mace</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Earthy and slightly sweet, used in
-								sauces.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/red-chilli.jpg"
-							class="card-img-top" alt="Red Chili">
-						<div class="card-body">
-							<h5 class="card-title">Red Chilli</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Spicy, adds heat and color to dishes.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/saffron.jpg"
-							class="card-img-top" alt="Saffron">
-						<div class="card-body">
-							<h5 class="card-title">Saffron</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Luxurious, adds fragrance and color to
-								dishes.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/tamrind.jpg"
-							class="card-img-top" alt="Tamarind">
-						<div class="card-body">
-							<h5 class="card-title">Tamarind</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Tart and tangy, used in chutneys and
-								curries.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-whole">
-						<img src="images/product/spices/wholeSpice/kala-jeera.jpg"
-							class="card-img-top" alt="Kala Jeera (Black Cumin)">
-						<div class="card-body">
-							<h5 class="card-title">Kala Jeera (Black Cumin)</h5>
-							<span class="badge badge-danger">Spice</span>
-							<p class="card-text">Aromatic, nutty spice, adds a distinct
-								flavor.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/turmeric.jpg"
-							class="card-img-top" alt="Turmeric">
-						<div class="card-body">
-							<h5 class="card-title">Turmeric</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">Bright yellow spice used in curries,
-								rice, and for medicinal purposes.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/cumin.jpg"
-							class="card-img-top" alt="Cumin">
-						<div class="card-body">
-							<h5 class="card-title">Cumin</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">Earthy, warm spice used in a variety of
-								Indian dishes.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/coriander.jpg"
-							class="card-img-top" alt="Coriander">
-						<div class="card-body">
-							<h5 class="card-title">Coriander</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">Mild, citrusy flavor used in curries,
-								soups, and stews.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/chilli.jpg"
-							class="card-img-top" alt="Chili Powder">
-						<div class="card-body">
-							<h5 class="card-title">Chilli Powder</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">Adds spice to dishes, comes in different
-								levels of spiciness.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/garam-masala.jpg"
-							class="card-img-top" alt="Garam Masala">
-						<div class="card-body">
-							<h5 class="card-title">Garam Masala</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">A blend of spices used to add depth and
-								warmth to curries and stews.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/cinnamon.jpg"
-							class="card-img-top" alt="Cinnamon">
-						<div class="card-body">
-							<h5 class="card-title">Cinnamon</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">Sweet and woody spice used in both sweet
-								and savory dishes.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/cardamon.jpg"
-							class="card-img-top" alt="Cardamom">
-						<div class="card-body">
-							<h5 class="card-title">Cardamom</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">Sweet, warm spice used in desserts and
-								curries.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/asafoetida.jpg"
-							class="card-img-top" alt="Asafoetida">
-						<div class="card-body">
-							<h5 class="card-title">Asafoetida</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">Pungent spice used in small quantities
-								to enhance flavors.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/amchur-powder.jpg"
-							class="card-img-top" alt="Amchur">
-						<div class="card-body">
-							<h5 class="card-title">Amchur</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">Tangy powder made from dried mangoes,
-								used in curries.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/kasuri-methi.jpg"
-							class="card-img-top" alt="Kasuri Methi">
-						<div class="card-body">
-							<h5 class="card-title">Kasuri Methi</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">Dried fenugreek leaves, crushed for a
-								unique flavor Indian dishes.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/nutmeg.jpg"
-							class="card-img-top" alt="Nutmeg">
-						<div class="card-body">
-							<h5 class="card-title">Nutmeg</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">Sweet and warm spice used in desserts,
-								curries, and beverages.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/Black-Salt.jpg"
-							class="card-img-top" alt="Black Salt">
-						<div class="card-body">
-							<h5 class="card-title">Black Salt</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">Salty and tangy seasoning used in
-								chaats, salads, and various dishes.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/pav-bhaji.jpg"
-							class="card-img-top" alt="Pav Bhaji Masala">
-						<div class="card-body">
-							<h5 class="card-title">Pav Bhaji Masala</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">A spice blend used to prepare Pav Bhaji,
-								with a rich and tangy flavor.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/chana-masala.jpg"
-							class="card-img-top" alt="Chana Masala">
-						<div class="card-body">
-							<h5 class="card-title">Chana Masala</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">A spice blend used to cook the famous
-								Chana Masala.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/meat-masala.jpg"
-							class="card-img-top" alt="Meat Masala">
-						<div class="card-body">
-							<h5 class="card-title">Meat Masala</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">A flavorful spice mix designed to
-								enhance the taste of meat dishes.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/biryani-masala.jpg"
-							class="card-img-top" alt="Biryani Masala">
-						<div class="card-body">
-							<h5 class="card-title">Biryani Masala</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">A fragrant blend of spices used to
-								prepare biryani.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/chole-masala.jpg"
-							class="card-img-top" alt="Chole Masala">
-						<div class="card-body">
-							<h5 class="card-title">Chole Masala</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">A spice blend used to cook Chole with a
-								tangy, spicy flavor.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 mb-4 spice-item">
-					<div class="card spice-card-powder">
-						<img src="images/product/spices/powder/chaat-masala.jpg"
-							class="card-img-top" alt="Chaat Masala">
-						<div class="card-body">
-							<h5 class="card-title">Chaat Masala</h5>
-							<span class="badge badge-success">Powder</span>
-							<p class="card-text">A tangy, spicy seasoning mix used to
-								enhance the flavor.</p>
-							<p class="card-text">
-								<strong>&#8377;249</strong>
-							</p>
-							<div class="mb-3">
-								<select class="form-select" id="selectedQuantity"
-									name="selectedQuantity">
-									<option value="500" data-price="200">500g - ₹200</option>
-									<option value="3000" data-price="1200">3kg - ₹1200</option>
-								</select>
-							</div>
-							<button class="btn btn-outline-danger add-to-cart">Add
-								to Cart</button>
-						</div>
-					</div>
-				</div>
+				<%
+				}
+				%>
 			</div>
 		</div>
-
 	</form>
+	
 
 	<div id="pagination" class="pagination-container"></div>
 
 	<footer class="text-center mt-5">
 		<p>Enjoy Nature's Fresh Spices!</p>
 		<p>
-			<a href="index.jsp" class="text-success">Go back to Home</a>
+			<a href="/MysoreMart/" class="text-success">Go back to Home</a>
 		</p>
 	</footer>
 
@@ -1289,7 +403,7 @@ input[type="text"] {
 			<p>Phone: +91 9988776655</p>
 		</div>
 		<div class="container text-light text-center">
-			<a class="navbar-brand ms-0" href="index"> <img
+			<a class="navbar-brand ms-0" href="/MysoreMart/"> <img
 				src="images/product/mart.png" alt="Mysore Mart" width="200"
 				height="75">
 			</a> <br> <small class="text-white-50">&copy; 2024
@@ -1297,9 +411,9 @@ input[type="text"] {
 			<!-- copy symbol and  white text with 50% opacity -->
 		</div>
 	</footer>
-
+	
+	<script src="<c:url value='/js/userProfile/userLogin.js'/>"></script>
 	<script src="<c:url value='/js/index.js'/>"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 	<script

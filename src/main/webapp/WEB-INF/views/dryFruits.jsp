@@ -1,11 +1,14 @@
+<%@page import="com.info.MysoreMart.Model.Product"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>MysoreMart - Shop the Best Deals on Groceries &
-	Provisions</title> 
+	Provisions</title>
 <link rel="icon" href="images/product/mart.png" type="image/png">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -17,8 +20,8 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
 body {
 	font-family: 'Arial', sans-serif;
@@ -80,7 +83,9 @@ input[type="text"] {
 
 .search-container {
 	position: relative;
-	width: 100%;
+	width: 80%;
+	max-width: 800px;
+	margin: 0 auto;
 }
 
 #searchInput {
@@ -143,46 +148,22 @@ input[type="text"] {
 	border-radius: 5px;
 }
 
-.cart-icon {
-	position: relative;
-}
-
-#cart-count {
+#cart-item-count-nav {
 	position: absolute;
-	top: -10px;
-	right: -10px;
-	display: none;
-	z-index: 10;
-}
-
-#success-alert {
-	position: fixed;
-	top: 20px;
-	left: 50%;
-	transform: translateX(-50%);
-	z-index: 1050;
-	width: auto;
-	padding: 10px 20px;
-	background-color: rgba(144, 238, 144, 0.8);
-	color: darkgreen;
-	border-radius: 5px;
-}
-
-.cart-icon {
-	position: relative;
-}
-
-#cart-count {
-	position: absolute;
-	top: -10px;
-	right: -10px;
-	display: none;
-	z-index: 10;
+	top: -5px;
+	right: -5px;
+	background-color: red;
+	color: white;
+	padding: 5px 10px;
+	border-radius: 50%;
+	font-size: 14px;
+	font-weight: bold;
+	display: inline-block;
+	min-width: 20px;
+	text-align: center;
 }
 </style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
+
 <script>
     let currentPage = 1;
     const itemsPerPage = 6;
@@ -234,48 +215,26 @@ input[type="text"] {
     window.onload = function() {
         showPage(1);
     };
-    
-    document.addEventListener('DOMContentLoaded', function () {
-		
-    	  const productContainer = document.querySelector('#menu'); 
-
-    	  if (productContainer) {
-    	    productContainer.addEventListener('change', function (event) {
-    	      
-    	      if (event.target && event.target.tagName.toLowerCase() === 'select') {
-    	        const selectedOption = event.target.options[event.target.selectedIndex];
-    	        const price = selectedOption.getAttribute('data-price');
-    	        const priceElement = event.target.closest('.card-body').querySelector('strong');
-    	        
-    	        if (priceElement) {
-    	          priceElement.textContent = `₹${price}`;
-    	        }
-    	      }
-    	    });
-
-    	    
-    	    const selectElements = productContainer.querySelectorAll('select');
-    	    selectElements.forEach(function (select) {
-    	      const selectedOption = select.options[select.selectedIndex];
-    	      const priceElement = select.closest('.card-body').querySelector('strong');
-    	      const price = selectedOption.getAttribute('data-price');
-    	      if (priceElement) {
-    	        priceElement.textContent = `₹${price}`;
-    	      }
-    	    });
-    	  }
-    	});
+    	
 </script>
 <script>
         // Define the base URL for AJAX requests
         var baseUrl = "<c:url value='/add'/>";
+        var baseUrl4 = "<c:url value='/logout'/>";
     </script>
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<%
+    String userFullName = (String) session.getAttribute("userFullName");
+    if (userFullName == null) {
+        userFullName = "User"; 
+    }
+%>
+
+	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
 		<div class="container">
-			<a class="navbar-brand ms-0" href="index"> <img
+			<a class="navbar-brand ms-0" href="/MysoreMart/"> <img
 				src="images/product/mart.png" alt="Mysore Mart" width="200"
 				height="75">
 			</a>
@@ -293,12 +252,12 @@ input[type="text"] {
 							Category </a>
 						<ul class="dropdown-menu">
 							<li><a class="dropdown-item" href="fruits">Fruits</a></li>
-							<li><a class="dropdown-item" href="vegetable">Vegetables</a></li>
+							<li><a class="dropdown-item" href="vegetables">Vegetables</a></li>
 							<li><a class="dropdown-item" href="biscuits">Sip-Snack</a></li>
 							<li><a class="dropdown-item" href="dairyProducts">Dairy
 									Products</a></li>
 							<li><a class="dropdown-item" href="spices">Spices/Oils</a></li>
-							<li><a class="dropdown-item" href="dal-pulses">Dal/Pulses</a></li>
+							<li><a class="dropdown-item" href="Dals & Pulses">Dal/Pulses</a></li>
 							<li><a class="dropdown-item" href="grocery">Wholesome
 									Grains</a></li>
 						</ul></li>
@@ -306,476 +265,108 @@ input[type="text"] {
 
 				<ul
 					class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-					<!-- Added d-flex and align-items-center -->
-					<li class="nav-item"><a class="nav-link" href="login.jsp">
-							<button type="button" class="btn btn-outline-dark">Login/SignUp</button>
-					</a></li>
+					<a class="nav-link" href="login" id="loginSignupLink">
+						<button id="loginBtn" type="button"
+							class="btn btn-outline-dark login-signup-btn">Login/SignUp</button>
+					</a>
+
+					<li class="nav-item dropdown" id="helloUser" style="display: none;">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<strong style="font-size:17px;">Hello,  <%= userFullName %></strong> </a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item"
+								href="<c:url value='/userDashboard'/>">Dashboard</a></li>
+							<li><a class="dropdown-item" href="#contact">Contact Us</a></li>
+							<li><a class="dropdown-item" href="logout" id="logoutBtn">Logout</a></li>
+						</ul>
+					</li>
+
+					<%
+					Integer cartItemCount = (Integer) request.getAttribute("cartItemCount");
+					%>
+
 					<li class="nav-item"><a class="nav-link"
 						href="/MysoreMart/cart" style="position: relative;"> <i
-							class="bi bi-cart4 text-danger fs-2"></i> <span id="cart-count"
-							class="badge bg-danger" style="display: none;">0</span>
+							class="bi bi-cart4 text-danger fs-2"></i> <%
+ if (cartItemCount != null && cartItemCount > 0) {
+ %> <span class="badge item" id="cart-item-count-nav"> <%=cartItemCount%>
+						</span> <%
+ } else {
+ %> <span class="badge item" id="cart-item-count-nav"
+							style="display: none;"></span> <%
+ }
+ %>
 					</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-	
+
 	<div id="success-alert" class="alert alert-success" role="alert"
 		style="display: none;">Item has been added to cart successfully.
 	</div>
 
 	<div class="text-center mb-4">
-		<div class="search-container w-50 d-inline">
+		<div class="search-container">
 			<input type="text" id="searchInput" class="form-control"
 				placeholder="Search dry fruits by name..."
 				onkeyup="searchDryFruits()"> <i
 				class="fas fa-search search-icon"></i>
 		</div>
 	</div>
-<form action="add" method="post" id="cart-form">
-	<div id="menu" class="container mt-5">
-		<h2 class="text-center mb-4">Fresh Dry Fruits</h2>
-		<div class="row">
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/almonds.jpg"
-						class="card-img-top" alt="Almonds">
-					<div class="card-body">
-						<h5 class="card-title">Almonds</h5>
-						<p class="card-text">A nutrient-dense nut rich in healthy
-							fats, protein, and fiber.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
+	
+	<form action="add" method="post" id="cart-form">
+		<div id="menu" class="container mt-5">
+			<h2 class="text-center mb-4">Fresh Dry Fruits</h2>
+			<div class="row">
 
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/cashews.jpg"
-						class="card-img-top" alt="Cashews">
-					<div class="card-body">
-						<h5 class="card-title">Cashews</h5>
-						<p class="card-text">Creamy, mild-flavored nuts packed with
-							vitamins, minerals antioxidants.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
+				<%
+				List<Product> productItems = (List<Product>) request.getAttribute("productItems");
+				for (Product prod : productItems) {
+				%>
 
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/walnuts.jpg"
-						class="card-img-top" alt="Walnuts">
-					<div class="card-body">
-						<h5 class="card-title">Walnuts</h5>
-						<p class="card-text">A rich source of omega-3 brain health and
-							heart function.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
+				<div class="col-md-4 mb-4 dryfruit-item">
+					<div class="card dryfruit-card">
+						<img src="<%=prod.getProductImage()%>" class="card-img-top"
+							alt="<%=prod.getProductName()%>">
+						<div class="card-body">
+							<h5 class="card-title">
+								<%=prod.getProductName()%>
+							</h5>
+							<p class="card-text">
+								<%=prod.getProductDescription()%>
+							</p>
 
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/pista.jpg" class="card-img-top"
-						alt="Pistachios">
-					<div class="card-body">
-						<h5 class="card-title">Pistachios</h5>
-						<p class="card-text">Small, crunchy nuts rich in protein,
-							fiber, and antioxidants.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
+							<p class="card-text">
+								<strong>&#8377;<%=prod.getProductPrice()%></strong>
+							</p>
+							<div class="mb-3">
+								<p class="card-text weight"><%=prod.getProductQuantity()%></p>
+							</div>
+							<button class="btn btn-outline-danger add-to-cart"
+								data-product-id="<%=prod.getProductId()%>"
+								data-product-name="<%=prod.getProductName()%>"
+								data-product-price="<%=prod.getProductPrice()%>"
+								data-product-quantity="<%=prod.getProductQuantity()%>"
+								data-product-img="<%=prod.getProductImage()%>">Add to
+								Cart</button>
 						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
 					</div>
 				</div>
-			</div>
-
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/raisins.jpg"
-						class="card-img-top" alt="Raisins">
-					<div class="card-body">
-						<h5 class="card-title">Raisins</h5>
-						<p class="card-text">Dried grapes high in iron, fiber, and
-							antioxidants.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/dates.jpg" class="card-img-top"
-						alt="Dates">
-					<div class="card-body">
-						<h5 class="card-title">Dates</h5>
-						<p class="card-text">Naturally sweet and nutrient-packed
-							fruits, rich in fiber, antioxidants.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/prunes.jpg" class="card-img-top"
-						alt="Prunes">
-					<div class="card-body">
-						<h5 class="card-title">Prunes</h5>
-						<p class="card-text">Dried plums, rich in fiber, potassium,
-							and antioxidants.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/figs.jpg" class="card-img-top"
-						alt="Figs">
-					<div class="card-body">
-						<h5 class="card-title">Figs</h5>
-						<p class="card-text">Sweet, chewy fruits that are high in
-							fiber, minerals, and antioxidants.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/apricots.jpg"
-						class="card-img-top" alt="Apricots">
-					<div class="card-body">
-						<h5 class="card-title">Apricots</h5>
-						<p class="card-text">Small, sweet fruits that are high in
-							vitamins A and C, antioxidants.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/cherries.jpg"
-						class="card-img-top" alt="Cherries">
-					<div class="card-body">
-						<h5 class="card-title">Cherries</h5>
-						<p class="card-text">A sweet, tangy fruit, cherries are rich
-							in antioxidants and vitamins.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/hazelnuts.jpg"
-						class="card-img-top" alt="Hazelnuts">
-					<div class="card-body">
-						<h5 class="card-title">Hazelnuts</h5>
-						<p class="card-text">A sweet, slightly buttery nut with a rich
-							flavor, fiber, and vitamin E.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/macadamia.jpg"
-						class="card-img-top" alt="Macadamia Nuts">
-					<div class="card-body">
-						<h5 class="card-title">Macadamia Nuts</h5>
-						<p class="card-text">Rich, buttery-flavored nuts with a
-							high-fat content.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/brazil.jpg" class="card-img-top"
-						alt="Brazil Nuts">
-					<div class="card-body">
-						<h5 class="card-title">Brazil Nuts</h5>
-						<p class="card-text">A highly nutritious nut, rich in selenium
-							and healthy fats.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/cranberry.jpg"
-						class="card-img-top" alt="Cranberries (Dried)">
-					<div class="card-body">
-						<h5 class="card-title">Cranberries (Dried)</h5>
-						<p class="card-text">Tart, dried cranberries, high in
-							antioxidants, vitamin C.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/gojiberry.jpg"
-						class="card-img-top" alt="Goji Berries">
-					<div class="card-body">
-						<h5 class="card-title">Goji Berries</h5>
-						<p class="card-text">Tiny red berries packed with
-							antioxidants, vitamins, and minerals.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/mulberries.jpg"
-						class="card-img-top" alt="Mulberries (Dried)">
-					<div class="card-body">
-						<h5 class="card-title">Mulberries (Dried)</h5>
-						<p class="card-text">Sweet, chewy dried berries, high in
-							vitamin C, iron, and antioxidants.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/blueberry.jpg"
-						class="card-img-top" alt="Blueberries (Dried)">
-					<div class="card-body">
-						<h5 class="card-title">Blueberries (Dried)</h5>
-						<p class="card-text">Sweet and tangy dried berries, rich in
-							antioxidants, vitamins.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 mb-4 dryfruit-item">
-				<div class="card dryfruit-card">
-					<img src="images/product/dryFruits/blackberries.jpg"
-						class="card-img-top" alt="Blackberries (Dried)">
-					<div class="card-body">
-						<h5 class="card-title">Blackberries (Dried)</h5>
-						<p class="card-text">Sweet, tart berries that are high in
-							vitamins C and K, fiber.</p>
-						<p class="card-text">
-							<strong>&#8377;249</strong>
-						</p>
-						<div class="mb-3">
-							<select class="form-select" id="selectedQuantity"
-								name="selectedQuantity">
-								<option value="500" data-price="200">500g - ₹200</option>
-								<option value="3000" data-price="1200">3kg - ₹1200</option>
-							</select>
-						</div>
-						<button class="btn btn-outline-danger add-to-cart">Add to
-							Cart</button>
-					</div>
-				</div>
+				<%
+				}
+				%>
 			</div>
 		</div>
-	</div>
-</form>
+	</form>
+	
 	<div id="pagination" class="pagination-container"></div>
 
 	<footer class="text-center">
 		<p>Dry Fruits Mart.</p>
 		<p>
-			<a href="index" class="text-success">Go back to Home</a>
+			<a href="/MysoreMart/" class="text-success">Go back to Home</a>
 		</p>
 	</footer>
 
@@ -786,7 +377,7 @@ input[type="text"] {
 			<p>Phone: +91 9988776655</p>
 		</div>
 		<div class="container text-light text-center">
-			<a class="navbar-brand ms-0" href="index"> <img
+			<a class="navbar-brand ms-0" href="/MysoreMart/"> <img
 				src="images/product/mart.png" alt="Mysore Mart" width="200"
 				height="75">
 			</a> <br> <small class="text-white-50">&copy; 2024
@@ -794,9 +385,9 @@ input[type="text"] {
 			<!-- copy symbol and  white text with 50% opacity -->
 		</div>
 	</footer>
-
+	
+	<script src="<c:url value='/js/userProfile/userLogin.js'/>"></script>
 	<script src="<c:url value='/js/index.js'/>"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 	<script

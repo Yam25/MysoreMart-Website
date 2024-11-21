@@ -2,7 +2,7 @@
 
 $(document).ready(function() {
 
-	// Update the cart totals on page load
+	
 	updateCart();
 	var productName = $(this).closest(".product").find('.card-title').text().trim();
 
@@ -37,6 +37,7 @@ $(document).ready(function() {
 	$(".decrease-qty").click(function() {
 		let quantityInput = $(this).siblings(".quantity");
 		let currentQuantity = parseInt(quantityInput.val());
+		if (currentQuantity > 1) {
 		let newQuantity = currentQuantity - 1;
 		quantityInput.val(newQuantity); 
 
@@ -58,6 +59,7 @@ $(document).ready(function() {
 				alert('Error updating quantity: ' + xhr.responseText);
 			}
 		});
+		}
 	});
 
 
@@ -97,10 +99,10 @@ function updateCart() {
 	});
 
 	
-	let gst = subtotal * 0.05; // 5% GST
+	let gst = subtotal * 0.05; 
 	let deliveryFee;
 
-	// Determine delivery fee based on subtotal
+	
 	if (subtotal < 100) {
 		deliveryFee = 50;
 	} else if (subtotal >= 100 && subtotal <= 199) {
@@ -113,7 +115,7 @@ function updateCart() {
 
 	let total = subtotal + gst + deliveryFee;
 
-	// Update the displayed totals
+	
 	$("#subtotal").text(subtotal.toFixed(2));
 	$("#gst").text(gst.toFixed(2));
 	$("#delivery-fee-value").text(deliveryFee.toFixed(2));
@@ -133,13 +135,13 @@ function updateCart() {
 		$("#card-sec").show();
 		$("#cart").show();
 	}
-	// Prepare checkout URL with total amount
+	
 	    let checkoutUrl = "checkout?totalAmount=" + encodeURIComponent(total.toFixed(2));
 	 
-	    // When the user clicks the checkout button, redirect them to the checkout page
+	   
 	    $("#checkout-button").click(function(event) {
-	        event.preventDefault();  // Prevent default action of the anchor tag
-	        window.location.href = checkoutUrl;  // Redirect with totalAmount in the URL
+	        event.preventDefault();  
+	        window.location.href = checkoutUrl;  
 	    });
 }
 });

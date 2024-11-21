@@ -96,11 +96,11 @@ public class UserProfileController {
         if (user != null && user.getPassword().equals(password)) {
             session.setAttribute("user", user);       // Store the user object in session
             session.setAttribute("userId", user.getId());  // Store user ID in session
+            session.setAttribute("userFullName", user.getFullName()); /* store username in session */
             session.setAttribute("userLoggedIn", "true");
             
             
-            int cartItemCount = cartService.getItemCountForUser(user.getId()); // Ensure this method works correctly
-            session.setAttribute("cartItemCount", cartItemCount); // Set it in the session
+           
             
             
 

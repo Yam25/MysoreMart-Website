@@ -40,6 +40,12 @@
 </head>
 <body>
 	<%
+    String userFullName = (String) session.getAttribute("userFullName");
+    if (userFullName == null) {
+        userFullName = "User"; 
+    }
+%>
+<%
 	List<CartDetails> cartItems = (List<CartDetails>) request.getAttribute("cartItems");
 	int itemCount = (cartItems != null) ? cartItems.size() : 0;
 	%>
@@ -56,18 +62,18 @@
 						class="btn btn-outline-dark login-signup-btn">Login/SignUp</button>
 				</a>
 
-				<!-- Hello Button with Dropdown (Initially hidden) -->
 				<li class="nav-item dropdown" id="helloUser" style="display: none;">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Hello, User </a>
-					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<li><a class="dropdown-item"
-							href="<c:url value='/userDashboard'/>">Dashboard</a></li>
-						<li><a class="dropdown-item" href="#contact">Contact Us</a></li>
-						<li><a class="dropdown-item" href="logout" id="logoutBtn">Logout</a></li>
-					</ul>
-				</li>
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<strong style="font-size:17px;">Hello,  <%= userFullName %></strong></a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item"
+								href="<c:url value='/userDashboard'/>">Dashboard</a></li>
+							<li><a class="dropdown-item" href="#contact">Contact Us</a></li>
+							<li><a class="dropdown-item" href="logout" id="logoutBtn">Logout</a></li>
+						</ul>
+					</li>
+
 				<li class="nav-item"><a class="nav-link"
 					href="/MysoreMart/cart" style="position: relative;"> <i
 						class="bi bi-cart4 text-danger fs-2"></i> <span class="badge item"
@@ -76,7 +82,6 @@
 			</ul>
 		</div>
 	</nav>
-
 	<main class="container py-5">
 
 		<div id="remove-alert" class="alert alert-danger" role="alert"
@@ -158,7 +163,7 @@
 									id="cart-total">0.00</span></strong>
 							</h5>
 							<hr>
-							<button class="btn btn-success w-100" id="checkout-button" >Checkout</button>
+							<button class="btn btn-success w-100" id="checkout-button">Checkout</button>
 						</div>
 					</div>
 				</div>

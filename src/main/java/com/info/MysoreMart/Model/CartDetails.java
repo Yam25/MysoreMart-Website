@@ -29,8 +29,8 @@ public class CartDetails {
    
   
 	@ManyToOne // Change to ManyToOne for multiple items in the cart
-    @JoinColumn(name = "user_id", nullable = false) // Ensure the foreign key references Userprofile
-    private Userprofile user; // Reference to Userprofile
+    @JoinColumn(name = "user_id", nullable = false) 
+    private Userprofile user;
 
     public CartDetails() {}
 
@@ -45,8 +45,6 @@ public class CartDetails {
 
        
     }
-
-    // Getters and setters...
 
     public Userprofile getUser() {
         return user; 
