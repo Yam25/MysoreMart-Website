@@ -133,5 +133,13 @@ function updateCart() {
 		$("#card-sec").show();
 		$("#cart").show();
 	}
+	// Prepare checkout URL with total amount
+	    let checkoutUrl = "checkout?totalAmount=" + encodeURIComponent(total.toFixed(2));
+	 
+	    // When the user clicks the checkout button, redirect them to the checkout page
+	    $("#checkout-button").click(function(event) {
+	        event.preventDefault();  // Prevent default action of the anchor tag
+	        window.location.href = checkoutUrl;  // Redirect with totalAmount in the URL
+	    });
 }
 });

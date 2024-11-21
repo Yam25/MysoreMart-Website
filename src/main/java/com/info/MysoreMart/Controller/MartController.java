@@ -49,6 +49,12 @@ public class MartController {
     public String forgot() {
         return "forget";  
     }
+    
+    @GetMapping("/checkout")
+    public String checkout() {
+        return "checkout";  
+    } 
+    
     @GetMapping("/search")
     public String search(HttpSession session, Model model) {
     	 Long userId = (Long) session.getAttribute("userId");

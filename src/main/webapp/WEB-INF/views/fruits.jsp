@@ -15,7 +15,7 @@
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
- 
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
@@ -30,13 +30,13 @@ body {
 	font-family: 'Arial', sans-serif;
 	background-color: #f8f9fa;
 }
- 
+
 body {
 	background-size: cover;
 	background-position: center;
 	color: #333;
 }
- 
+
 .fruits-card {
 	width: 300px;
 	height: 480px;
@@ -48,31 +48,31 @@ body {
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	transition: transform 0.2s;
 }
- 
+
 .fruits-card img {
 	width: 100%;
 	height: 200px;
 	object-fit: cover;
 }
- 
+
 .fruits-card:hover {
 	transform: scale(1.05);
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
- 
+
 footer {
 	margin-top: 40px;
 	font-weight: bold;
 }
- 
+
 .btn {
 	transition: background-color 0.3s, transform 0.2s;
 }
- 
+
 .btn:hover {
 	transform: scale(1.25);
 }
- 
+
 input[type="text"] {
 	width: 80%;
 	padding: 10px;
@@ -83,14 +83,14 @@ input[type="text"] {
 	color: #444;
 	font-size: 16px;
 }
- 
+
 .search-container {
 	position: relative;
 	width: 80%;
 	max-width: 800px;
 	margin: 0 auto;
 }
- 
+
 #searchInput {
 	width: 100%;
 	padding: 10px 15px 10px 15px;
@@ -100,16 +100,16 @@ input[type="text"] {
 	outline: none;
 	transition: box-shadow 0.3s ease;
 }
- 
+
 #searchInput:focus {
 	box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
 	border-color: #007bff;
 }
- 
+
 #searchInput::placeholder {
 	color: #aaa;
 }
- 
+
 .search-icon {
 	position: absolute;
 	top: 50%;
@@ -118,12 +118,12 @@ input[type="text"] {
 	color: #aaa;
 	font-size: 1rem;
 }
- 
+
 .pagination-container {
 	text-align: center;
 	margin-top: 20px;
 }
- 
+
 .pagination-container a {
 	padding: 8px 15px;
 	margin: 0 5px;
@@ -132,12 +132,12 @@ input[type="text"] {
 	color: #007bff;
 	text-decoration: none;
 }
- 
+
 .pagination-container a:hover {
 	background-color: #007bff;
 	color: white;
 }
- 
+
 #success-alert {
 	position: fixed;
 	top: 20px;
@@ -150,20 +150,24 @@ input[type="text"] {
 	color: darkgreen;
 	border-radius: 5px;
 }
- 
-.cart-icon {
-	position: relative;
+
+#cart-item-count-nav {
+    position: absolute;
+    top: -5px;  
+    right: -5px; 
+    background-color: red; 
+    color: white; 
+    padding: 5px 10px; 
+    border-radius: 50%; 
+    font-size: 14px; 
+    font-weight: bold; 
+    display: inline-block;
+    min-width: 20px; 
+    text-align: center; 
 }
- 
-#cart-count {
-	position: absolute;
-	top: -10px;
-	right: -10px;
-	display: none;
-	z-index: 10;
-}
+
 </style>
- 
+
 <script>
     let currentPage = 1;
     const itemsPerPage = 6;
@@ -222,7 +226,7 @@ input[type="text"] {
     </script>
 </head>
 <body>
- 
+
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 		<div class="container">
 			<a class="navbar-brand ms-0" href="/MysoreMart/"> <img
@@ -242,41 +246,59 @@ input[type="text"] {
 						data-bs-toggle="dropdown" aria-expanded="false"> Shop by
 							Category </a>
 						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="/MysoreMart/vegetables">Vegetables</a></li>
+							<li><a class="dropdown-item" href="/MysoreMart/biscuits">Sip-Snack</a></li>
 							<li><a class="dropdown-item"
-								href="/MysoreMart/vegetables">Vegetables</a></li>
-							<li><a class="dropdown-item"
-								href="/MysoreMart/biscuits">Sip-Snack</a></li>
-							<li><a class="dropdown-item"
-								href="/MysoreMart/dairyProducts">Dairy
-									Products</a></li>
-							<li><a class="dropdown-item"
-								href="/MysoreMart/dryFruits">Dry
+								href="/MysoreMart/dairyProducts">Dairy Products</a></li>
+							<li><a class="dropdown-item" href="/MysoreMart/dryFruits">Dry
 									Fruits</a></li>
-							<li><a class="dropdown-item"
-								href="/MysoreMart/spices">Spices/Oils</a></li>
+							<li><a class="dropdown-item" href="/MysoreMart/spices">Spices/Oils</a></li>
 							<li><a class="dropdown-item"
 								href="/MysoreMart/Dals & Pulses">Dal/Pulses</a></li>
 							<li><a class="dropdown-item" href="/MysoreMart/grocery">Wholesome
 									Grains</a></li>
 						</ul></li>
 				</ul>
-				<ul
-					class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-					<!-- Added d-flex and align-items-center -->
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
+				  	<a class="nav-link" href="login" id="loginSignupLink">
+			        <button id="loginBtn" type="button" class="btn btn-outline-dark login-signup-btn">Login/SignUp</button></a>
+				
+				    <li class="nav-item dropdown" id="helloUser" style="display: none;">
+				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				            Hello, User
+				        </a>
+				        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                 	       <li><a class="dropdown-item" href="<c:url value='/userDashboard'/>">Dashboard</a></li>
+				            <li><a class="dropdown-item" href="#contact">Contact Us</a></li>
+				            <li><a class="dropdown-item" href="logout" id="logoutBtn">Logout</a></li>
+				        </ul>
+				    </li>
+				    
+					<%
+					Integer cartItemCount = (Integer) request.getAttribute("cartItemCount");
+					%>
+
 					<li class="nav-item"><a class="nav-link"
 						href="/MysoreMart/cart" style="position: relative;"> <i
-							class="bi bi-cart4 text-danger fs-2"></i> <span id="cart-count"
-							class="badge bg-danger" style="display: none;">0</span>
+							class="bi bi-cart4 text-danger fs-2"></i> <%
+ if (cartItemCount != null && cartItemCount > 0) {
+ %> <span class="badge item" id="cart-item-count-nav"> <%=cartItemCount%>
+						</span> <%
+ } else {
+ %> <span class="badge item" id="cart-item-count-nav"
+							style="display: none;"></span> <%
+ }
+ %>
 					</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
- 
+
 	<div id="success-alert" class="alert alert-success" role="alert"
 		style="display: none;">Item has been added to cart successfully.
 	</div>
- 
+
 	<div class="text-center mb-4">
 		<div class="search-container">
 			<input type="text" id="searchInput" class="form-control"
@@ -284,17 +306,17 @@ input[type="text"] {
 			<i class="fas fa-search search-icon"></i>
 		</div>
 	</div>
- 
+
 	<form action="add" method="post" id="cart-form">
 		<div id="menu" class="container mt-5">
 			<h2 class="text-center mb-4">Fresh Fruits</h2>
 			<div class="row">
- 
+
 				<%
 			List<Product> productItems = (List<Product>) request.getAttribute("productItems");
 			for (Product prod : productItems) {
 		%>
- 
+
 				<div class="col-md-4 mb-4 fruit-item">
 					<div class="card fruits-card">
 						<img src="<%=prod.getProductImage()%>" class="card-img-top"
@@ -306,7 +328,7 @@ input[type="text"] {
 							<p class="card-text">
 								<%=prod.getProductDescription()%>
 							</p>
- 
+
 							<p class="card-text">
 								<strong>&#8377;<%=prod.getProductPrice()%></strong>
 							</p>
@@ -324,7 +346,8 @@ input[type="text"] {
 								data-product-name="<%= prod.getProductName() %>"
 								data-product-price="<%= prod.getProductPrice() %>"
 								data-product-quantity="<%= prod.getProductQuantity() %>"
-								data-product-img="<%= prod.getProductImage() %>">Add to Cart</button>
+								data-product-img="<%= prod.getProductImage() %>">Add to
+								Cart</button>
 						</div>
 					</div>
 				</div>
@@ -334,17 +357,17 @@ input[type="text"] {
 			</div>
 		</div>
 	</form>
- 
- 
+
+
 	<div class="pagination-container" id="pagination"></div>
- 
+
 	<footer class="text-center mt-5">
 		<p>Enjoy Nature's Fresh Fruits!</p>
 		<p>
 			<a href="/MysoreMart/" class="text-success">Go back to Home</a>
 		</p>
 	</footer>
- 
+
 	<footer class="bg-dark py-3 mt-3">
 		<div id="contact" class="conatiner text-light text-center">
 			<h4>Contact Us</h4>
@@ -360,8 +383,8 @@ input[type="text"] {
 			<!-- copy symbol and  white text with 50% opacity -->
 		</div>
 	</footer>
-	
- 
+	<script src="<c:url value='/js/userProfile/userLogin.js'/>"></script>
+	<script src="<c:url value='/js/index.js'/>"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 	<script
