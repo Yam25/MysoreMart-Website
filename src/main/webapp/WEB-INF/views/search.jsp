@@ -173,6 +173,8 @@
                                                         data-product-quantity="${product.productQuantity}"
                                                         data-product-img="${product.productImage}">Add to Cart</button> 
                                                        
+                                                        
+                                                        
                                             </div>
                                         </div>
                                     </div>
