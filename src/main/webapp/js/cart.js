@@ -10,6 +10,7 @@ $(document).ready(function() {
 	$(".increase-qty").click(function() {
 		let quantityInput = $(this).siblings(".quantity");
 		let currentQuantity = parseInt(quantityInput.val());
+		if (currentQuantity >= 1 && currentQuantity < 10) {
 		let newQuantity = currentQuantity + 1; 
 		quantityInput.val(newQuantity); 
 
@@ -31,6 +32,7 @@ $(document).ready(function() {
 				alert('Error updating quantity: ' + xhr.responseText);
 			}
 		});
+		}
 	}); 
 	
 	// Decrease quantity of an item
